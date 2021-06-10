@@ -1,15 +1,14 @@
 import React from "react";
 import { ImageBackground, StyleSheet, KeyboardAvoidingView } from "react-native";
+import { theme } from '../config/theme'
 
-export default () => (
-  <ImageBackground
-    source={require("../assets/background_dot.png")}
-    resizeMode="repeat"
-    style={styles.background}>
+export default ({ header, children }) => (
+  <>
+    {header}
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       {children}
     </KeyboardAvoidingView>
-  </ImageBackground>
+  </>
 );
 
 const styles = StyleSheet.create({

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { TextInput, Button } from 'react-native-paper';
+import { TextInput, Button, withTheme } from 'react-native-paper';
 
 import WavyBackground from '../components/WavyBackground';
 
@@ -43,6 +43,9 @@ class Login extends React.Component {
 
   render() {
 
+    const theme = this.props.theme;
+    console.log(theme);
+
     return (
       <>
         <LoginPaint />
@@ -54,6 +57,7 @@ class Login extends React.Component {
             mode={'outlined'}
             autoCompleteType={"username"}
             left={<TextInput.Icon name="account" />}
+            theme={theme}
           />
 
           <TextInput label="Senha"
@@ -63,8 +67,14 @@ class Login extends React.Component {
             autoCompleteType={"password"}
             left={<TextInput.Icon name="lock" />}
             right={<TextInput.Icon name={this.state.icon} onPress={() => this._changeIcon()} />}
+            theme={theme}
           />
-          <Button mode="contained" compact={true} loading={this.state.click} onPress={() => this._login()}>
+          <Button mode="contained"
+            compact={true}
+            loading={this.state.click}
+            onPress={() => this._login()}
+            theme={theme}
+          >
             {this.state.click ? null : "Acessar"}
           </Button>
         </View>
@@ -74,4 +84,4 @@ class Login extends React.Component {
 }
 
 
-export default Login;
+export default withTheme(Login);

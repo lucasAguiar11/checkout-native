@@ -8,6 +8,7 @@ export const theme = {
     primary: '#EA5455',
     secondary: '#414757',
     error: '#f13a59',
-    background: '#FEB692'
+    background: '#FEB692',
+    placeholder : '#000000'
   },
 }

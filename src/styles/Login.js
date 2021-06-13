@@ -7,15 +7,13 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width
     },
     headerContainer: {
-        marginTop: 60,
-        flex: 1
+        marginTop: 130,
     },
     titleText: {
         alignSelf: 'flex-end',
         marginRight: 30,
         fontSize: 35,
         lineHeight: 35,
-        marginTop: 40,
         color: '#ffff',
         fontWeight: 'bold'
     },
@@ -30,11 +28,15 @@ const styles = StyleSheet.create({
         padding: 10,
         display: 'flex',
         flex: 1,
+        marginTop: 30,
         justifyContent: 'center',
     },
 
     button: {
-        color: "#ffff"
+        color: "#ffff",
+        borderRadius: 100,
+        height: 45,
+        justifyContent: 'center'
     },
     forgotPassword: {
         alignItems: "flex-end"

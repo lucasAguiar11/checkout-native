@@ -12,7 +12,7 @@ import styles from '../styles/Login';
 const LoginPaint = () => (
   <WavyBackground
     customStyles={styles.svgCurve}
-    backgroundColor={theme.colors.secondary}
+    backgroundColor={'#ffffff'}
     wavyColor={theme.colors.primary}
   />
 );
@@ -56,13 +56,16 @@ class Login extends React.Component {
   }
 
   _login() {
+
+    this.props.navigation.navigate('Checkout');
+
+
     console.log('Pressed')
     this.setState(() => ({ click: true }));
 
     console.log(this.state)
     const usernameError = textValidator(this.state.username.value, 'usuário');
     const passError = textValidator(this.state.password.value, 'senha');
-
 
     if (usernameError || passError) {
       this.setState((prevState) => (
@@ -75,6 +78,7 @@ class Login extends React.Component {
       console.log("Validation Error", usernameError, passError);
       return;
     }
+
     //Send request
     setTimeout(() => this.setState(() => ({ click: false })), 1000);
   }

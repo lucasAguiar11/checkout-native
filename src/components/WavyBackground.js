@@ -1,18 +1,17 @@
 import React from "react";
 import { View, Dimensions } from "react-native";
 import Svg, { Rect, G, Path } from "react-native-svg";
+import { theme } from '../config/theme';
 
 export default function WavyBackground({
-    customStyles,
-    backgroundColor,
-    wavyColor
+    backgroundColor = '#ffff'
 }) {
 
     const w = Dimensions.get('window').width;
     const h = Dimensions.get('window').height;
 
     return (
-        <View style={customStyles}>
+        <View style={{ position: 'absolute', width: Dimensions.get('window').width }}>
             <Svg
                 height={h}
                 width={w}
@@ -21,14 +20,39 @@ export default function WavyBackground({
                 <Rect x="0" y="0" width={w} height={h} fill={backgroundColor} />
 
                 <G>
-                    <G transform="translate(553.5351758727538 146.97016817094976)">
-                        <Path d="M460.3 -438.5C538.8 -381.8 504.9 -190.9 450.5 -54.4C396 82 321 164 242.5 164.1C164 164.1 82 82 2.5 79.6C-77.1 77.1 -154.1 154.2 -272 154.2C-389.8 154.1 -548.4 77.1 -532.5 15.9C-516.6 -45.3 -326.2 -90.5 -208.3 -147.2C-90.5 -203.8 -45.3 -271.9 72.8 -344.8C190.9 -417.6 381.8 -495.2 460.3 -438.5" fill={wavyColor} />
+
+                    <G transform="translate(449.75 0)">
+                        <Path d="M107.3 -107.3C135.4 -79.2 152.1 -39.6 152.1 0C152.1 39.6 135.4 79.2 107.3 107.2C79.2 135.2 39.6 151.6 0 151.6C-39.6 151.6 -79.2 135.2 -107.2 107.2C-135.2 79.2 -151.6 39.6 -151.6 0C-151.6 -39.6 -135.2 -79.2 -107.2 -107.3C-79.2 -135.4 -39.6 -152.1 0 -152.1C39.6 -152.1 79.2 -135.4 107.3 -107.3" fill={theme.colors.primary} stroke={theme.colors.primary} strokeWidth={2}></Path>
                     </G>
+                    {/* <G transform="translate(380 47)">
+
+                        <Path d="M0 -144L124.7 -72L124.7 72L0 144L-124.7 72L-124.7 -72Z" fill={theme.colors.primary} stroke={theme.colors.primary} ></Path>
+                    </G> */}
+
                 </G>
             </Svg>
         </View>
     );
 }
+
+/*
+<View style={{ position: 'absolute', width: Dimensions.get('window').width }}>
+<Svg
+    height={h}
+    width={w}
+    viewBox={`0 0 ${w} ${h}`}
+>
+    <Rect x="0" y="0" width={w} height={h} fill={backgroundColor} />
+
+    <G>
+        <G transform="translate(553.5351758727538 146.97016817094976)">
+            <Path d="M460.3 -438.5C538.8 -381.8 504.9 -190.9 450.5 -54.4C396 82 321 164 242.5 164.1C164 164.1 82 82 2.5 79.6C-77.1 77.1 -154.1 154.2 -272 154.2C-389.8 154.1 -548.4 77.1 -532.5 15.9C-516.6 -45.3 -326.2 -90.5 -208.3 -147.2C-90.5 -203.8 -45.3 -271.9 72.8 -344.8C190.9 -417.6 381.8 -495.2 460.3 -438.5" fill={theme.colors.primary} />
+        </G>
+    </G>
+</Svg>
+</View>
+*/
+
 
 /*
         <View style={customStyles}>

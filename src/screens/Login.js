@@ -59,7 +59,6 @@ class Login extends React.Component {
 
     this.props.navigation.navigate('Checkout');
 
-
     console.log('Pressed')
     this.setState(() => ({ click: true }));
 
@@ -79,7 +78,6 @@ class Login extends React.Component {
       return;
     }
 
-    //Send request
     setTimeout(() => this.setState(() => ({ click: false })), 1000);
   }
 

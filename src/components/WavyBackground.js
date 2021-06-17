@@ -4,7 +4,8 @@ import Svg, { Rect, G, Path } from "react-native-svg";
 import { theme } from '../config/theme';
 
 export default function WavyBackground({
-    backgroundColor = '#ffff'
+    backgroundColor = '#ffff',
+    fill = false
 }) {
 
     const w = Dimensions.get('window').width;
@@ -22,7 +23,7 @@ export default function WavyBackground({
                 <G>
 
                     <G transform="translate(449.75 0)">
-                        <Path d="M107.3 -107.3C135.4 -79.2 152.1 -39.6 152.1 0C152.1 39.6 135.4 79.2 107.3 107.2C79.2 135.2 39.6 151.6 0 151.6C-39.6 151.6 -79.2 135.2 -107.2 107.2C-135.2 79.2 -151.6 39.6 -151.6 0C-151.6 -39.6 -135.2 -79.2 -107.2 -107.3C-79.2 -135.4 -39.6 -152.1 0 -152.1C39.6 -152.1 79.2 -135.4 107.3 -107.3" fill={theme.colors.primary} stroke={theme.colors.primary} strokeWidth={2}></Path>
+                        <Path d="M107.3 -107.3C135.4 -79.2 152.1 -39.6 152.1 0C152.1 39.6 135.4 79.2 107.3 107.2C79.2 135.2 39.6 151.6 0 151.6C-39.6 151.6 -79.2 135.2 -107.2 107.2C-135.2 79.2 -151.6 39.6 -151.6 0C-151.6 -39.6 -135.2 -79.2 -107.2 -107.3C-79.2 -135.4 -39.6 -152.1 0 -152.1C39.6 -152.1 79.2 -135.4 107.3 -107.3" stroke={theme.colors.primary} fill={fill ? theme.colors.primary : 'none'} strokeWidth={4}></Path>
                     </G>
                     {/* <G transform="translate(380 47)">
 

@@ -1,8 +1,8 @@
 import React from 'react';
-import MainStack from './src/stacks/MainStack';
+import InitialStack from './src/stacks/InitialStack';
 
 export default () => {
     return (
-        <MainStack />
+        <InitialStack />
     );
 }

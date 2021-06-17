@@ -3,12 +3,6 @@ import { View, StyleSheet, Image } from 'react-native';
 import { Text, Button, withTheme, useTheme } from 'react-native-paper';
 import WavyBackground from '../../components/WavyBackground';
 
-
-const Painter = () => (
-    <WavyBackground />
-);
-
-
 const Initial = () => {
     const theme = useTheme();
     console.log(theme);

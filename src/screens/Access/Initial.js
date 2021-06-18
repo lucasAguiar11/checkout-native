@@ -1,11 +1,15 @@
 import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, Image } from 'react-native';
 import { Text, Button, withTheme, useTheme } from 'react-native-paper';
-import WavyBackground from '../../components/WavyBackground';
 
-const Initial = () => {
+import WavyBackground from '../../components/WavyBackground';
+import styles from '../../styles/access/Initial'
+
+
+const Initial = ({ navigation }) => {
     const theme = useTheme();
-    console.log(theme);
+
+    // console.log(navigation);
     return (
         <View style={styles.container}>
             <WavyBackground />
@@ -25,7 +29,9 @@ const Initial = () => {
                     style={styles.button}
                     contentStyle={styles.buttonContent}
                     theme={theme}
-                    onPress={() => console.log("click!")}
+                    onPress={() => {
+                        navigation.navigate('User')
+                    }}
                 >
                     ACESSAR
                 </Button>
@@ -44,47 +50,5 @@ const Initial = () => {
     )
 };
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'space-between'
-    },
-    containerLogo: {
-        padding: 20,
-        justifyContent: 'center',
-        flex: 1
-    },
-
-    containerButton: {
-        padding: 20,
-    },
-
-    logo: {
-        width: 200,
-        height: 200,
-        resizeMode: 'contain',
-        alignItems: 'center'
-    },
-
-    slogan: {
-        fontSize: 20,
-        textTransform: 'capitalize',
-        flexWrap: 'wrap',
-        lineHeight: 30
-    },
-
-    button: {
-        marginTop: 15,
-        alignContent: 'center',
-        justifyContent: 'center',
-        height: 50,
-    },
-    buttonContent: {
-        height: 50
-    },
-    buttonReg: {
-        borderWidth: 2
-    }
-});
 
 export default withTheme(Initial);

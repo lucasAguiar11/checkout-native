@@ -1,4 +1,3 @@
-import React from 'react';
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -30,18 +29,6 @@ const styles = StyleSheet.create({
         lineHeight: 30
     },
 
-    button: {
-        marginTop: 15,
-        alignContent: 'center',
-        justifyContent: 'center',
-        height: 50,
-    },
-    buttonContent: {
-        height: 50
-    },
-    buttonReg: {
-        borderWidth: 2
-    }
 });
 
 export default styles;

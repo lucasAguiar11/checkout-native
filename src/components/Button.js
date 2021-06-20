@@ -4,28 +4,37 @@ import { Button as PaperButton } from 'react-native-paper';
 
 import { theme } from "../config/theme";
 
-export default ({ mode, style, ...props }) => (
-    <PaperButton
-        style={[
-            styles.button,
-            mode === 'outlined' && { backgroundColor: theme.colors.surface },
-            style,
-        ]}
-        labelStyle={styles.text}
-        mode={mode}
-        {...props}
-    />
-);
+export default ({ border = false, ...props }) => {
+
+    let arrStyles = [styles.button];
+
+    if (border)
+        arrStyles.push(styles.buttonReg);
+
+    if (props.style)
+        arrStyles.push(props.style);
+
+    return (
+        <PaperButton
+            theme={theme}
+            contentStyle={styles.buttonContent}
+            {...props}
+            style={arrStyles}
+        />
+    )
+};
 
 const styles = StyleSheet.create({
     button: {
-        width: '100%',
-        marginVertical: 10,
-        paddingVertical: 2,
+        marginTop: 15,
+        alignContent: 'center',
+        justifyContent: 'center',
+        height: 50,
     },
-    text: {
-        fontWeight: 'bold',
-        fontSize: 15,
-        lineHeight: 26,
+    buttonContent: {
+        height: 50
     },
+    buttonReg: {
+        borderWidth: 2,
+    }
 });

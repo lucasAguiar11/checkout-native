@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { View } from 'react-native';
-import { withTheme, HelperText } from 'react-native-paper';
+import { withTheme, TextInput } from 'react-native-paper';
 
 import { styles } from '../../styles/access/User';
 import Button from '../../components/Button';
@@ -19,16 +19,11 @@ class User extends React.Component {
 
                 <View>
                     <Input
-                        label="E-mail ou nome de usuário"
+                        label="Senha"
                         theme={theme}
                         style={styles.input}
+                        right={<TextInput.Icon name="eye" color={theme.colors.primary} />}
                     />
-                    <HelperText
-                        type="info"
-                        padding='none'
-                    >
-                        Insira seu nome de usuário para ter acesso ao app e suas funcionalidades.
-                    </HelperText>
                 </View>
 
                 <View>
@@ -37,10 +32,9 @@ class User extends React.Component {
                         theme={theme}
                         style={styles.nextButton}
                         onPress={() => {
-                            this.props.navigation.navigate('Pass')
                         }}
                     >
-                        Próximo
+                        Enviar
                     </Button>
                 </View>
 

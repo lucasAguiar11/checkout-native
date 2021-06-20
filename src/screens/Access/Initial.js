@@ -1,15 +1,14 @@
 import React from 'react';
 import { View, Image } from 'react-native';
-import { Text, Button, withTheme, useTheme } from 'react-native-paper';
+import { Text, withTheme, useTheme } from 'react-native-paper';
 
 import WavyBackground from '../../components/WavyBackground';
-import styles from '../../styles/access/Initial'
+import styles from '../../styles/access/Initial';
+import Button from '../../components/Button';
 
 
 const Initial = ({ navigation }) => {
     const theme = useTheme();
-
-    // console.log(navigation);
     return (
         <View style={styles.container}>
             <WavyBackground />
@@ -23,11 +22,8 @@ const Initial = ({ navigation }) => {
                 </Text>
             </View>
             <View style={styles.containerButton} >
-
                 <Button
                     mode={'contained'}
-                    style={styles.button}
-                    contentStyle={styles.buttonContent}
                     theme={theme}
                     onPress={() => {
                         navigation.navigate('User')
@@ -37,9 +33,8 @@ const Initial = ({ navigation }) => {
                 </Button>
                 <Button
                     mode={'outlined'}
-                    style={[styles.button, styles.buttonReg]}
                     theme={theme}
-                    contentStyle={styles.buttonContent}
+                    border={true}
                     onPress={() => console.log("click!")}
                 >
                     CADASTRAR

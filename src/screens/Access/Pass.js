@@ -41,6 +41,10 @@ class User extends React.Component {
 
             return;
         }
+
+        setTimeout(() => {
+            this.props.navigation.navigate('StackCheckout');
+        }, 3000);
     }
 
     render() {

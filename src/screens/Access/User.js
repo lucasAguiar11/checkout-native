@@ -7,9 +7,29 @@ import { styles } from '../../styles/access/User';
 import Button from '../../components/Button';
 import Input from '../../components/InputNoPadding';
 
+import { textValidator } from '../../helpers/Validation';
+
 class User extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            username: { value: '', error: '' },
+        }
+    }
+
+    nextScreen() {
+
+        const usernameError = textValidator(this.state.username.value, 'usuário');
+
+        if (usernameError) {
+            this.setState((prevState) => ({
+                username: { ...prevState.username, error: usernameError }
+            }));
+            return;
+        }
+
+        this.props.navigation.navigate('Pass');
     }
 
     render() {
@@ -22,6 +42,12 @@ class User extends React.Component {
                         label="E-mail ou nome de usuário"
                         theme={theme}
                         style={styles.input}
+                        returnKeyType="next"
+                        value={this.state.username.value}
+                        error={!!this.state.username.error}
+                        errorText={this.state.username.error}
+                        onChangeText={(text) => this.setState({ username: { value: text, error: '' } })}
+
                     />
                     <HelperText
                         type="info"
@@ -36,9 +62,7 @@ class User extends React.Component {
                         mode={'contained'}
                         theme={theme}
                         style={styles.nextButton}
-                        onPress={() => {
-                            this.props.navigation.navigate('Pass')
-                        }}
+                        onPress={() => this.nextScreen()}
                     >
                         Próximo
                     </Button>

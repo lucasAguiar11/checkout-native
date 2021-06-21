@@ -1,20 +1,29 @@
-import React from 'react';
-import { StyleSheet, Text, View } from "react-native";
+import * as React from 'react';
+import { BottomNavigation, Text } from 'react-native-paper';
+import Dashboard from './Dashboard';
 
-export default () => (
-  <View>
-    <Text style={styles.dummyText}>Checkout</Text>
-  </View>
-);
-const styles = StyleSheet.create({
-  container: {
-    position: "absolute",
-    top: "40%",
-  },
-  dummyText: {
-    color: "red",
-    fontWeight: "bold",
-    fontSize: 30,
-    textAlign: "center",
-  },
-});
+const RecentsRoute = () => <Text>Recents</Text>;
+
+const Checkout = () => {
+  const [index, setIndex] = React.useState(0);
+  const [routes] = React.useState([
+    { key: 'home', title: 'Home', icon: 'home' },
+    { key: 'recents', title: 'Recents', icon: 'webhook', badge: true },
+  ]);
+
+  const renderScene = BottomNavigation.SceneMap({
+    home: Dashboard,
+    recents: RecentsRoute,
+  });
+
+  return (
+    <BottomNavigation
+      navigationState={{ index, routes }}
+      onIndexChange={setIndex}
+      renderScene={renderScene}
+      shifting={true}
+    />
+  );
+};
+
+export default Checkout;

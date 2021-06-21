@@ -3,7 +3,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { withTheme, TextInput, HelperText } from 'react-native-paper';
 
-import { styles } from '../../styles/access/User';
+import { styles } from '../../styles/access/Pass';
 import Button from '../../components/Button';
 import Input from '../../components/InputNoPadding';
 
@@ -42,9 +42,7 @@ class User extends React.Component {
             return;
         }
 
-        setTimeout(() => {
-            this.props.navigation.navigate('StackCheckout');
-        }, 3000);
+        this.props.navigation.navigate('StackCheckout');
     }
 
     render() {

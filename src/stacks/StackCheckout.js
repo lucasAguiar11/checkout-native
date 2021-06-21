@@ -1,6 +1,7 @@
 import React from "react";
 import { createStackNavigator, HeaderBackButton } from "@react-navigation/stack";
 
+import Dashboard from "../screens/checkout/Dashboard";
 import Checkout from "../screens/checkout/Checkout";
 
 const Stack = createStackNavigator();

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Image } from 'react-native';
 import { Text, withTheme, useTheme } from 'react-native-paper';
 
-import WavyBackground from '../../components/WavyBackground';
+import { WavyBackground } from '../../components/WavyBackground';
 import styles from '../../styles/access/Initial';
 import Button from '../../components/Button';
 

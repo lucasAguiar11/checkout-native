@@ -7,12 +7,29 @@ export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7)
 export const styles = StyleSheet.create({
     container: {
         padding: 20,
-        flex: 1,
-        backgroundColor: '#eeebec'
+        backgroundColor: '#eeebec',
+        flex: 1
     },
+    containerCarousel: {
+        alignItems: 'center'
+    },
+    cardCarousel: {
+        width: ITEM_WIDTH,
+        height: 200,
+    },
+
     header: {
-        height: '30%'
+        height: '20%'
     },
+
+    textWhite: {
+        color: '#ffff'
+    },
+
+    textBold: {
+        fontWeight: 'bold'
+    },
+
     row: {
         flexDirection: "row",
         marginBottom: 10
@@ -28,12 +45,8 @@ export const styles = StyleSheet.create({
         width: '100%',
         height: 200
     },
-    cardsQtd:{
+    cardsQtd: {
         justifyContent: "space-between"
     },
-    cardCarousel:{
-        width: ITEM_WIDTH,
-        height: 200,
-        backgroundColor: 'red',
-    }
+
 });

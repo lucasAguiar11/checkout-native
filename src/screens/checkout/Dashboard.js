@@ -7,6 +7,7 @@ import { theme } from '../../config/theme';
 import { styles, SLIDER_WIDTH, ITEM_WIDTH } from '../../styles/checkout/Dashboard';
 import { WavyHeader } from '../../components/WavyBackground';
 import { definePeriod } from '../../helpers/Helpers';
+import Line from '../../components/charts/Line';
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -39,6 +40,23 @@ class Dashboard extends React.Component {
         }
     }
 
+    _carousel() {
+        return (
+            <>
+                <Carousel
+                    style={styles.carousel}
+                    layout={"default"}
+                    ref={ref => this.carousel = ref}
+                    data={this.state.entries}
+                    sliderWidth={SLIDER_WIDTH}
+                    itemWidth={ITEM_WIDTH}
+                    renderItem={this._renderItem}
+                    onSnapToItem={index => this.setState({ activeSlide: index })} />
+                {this._pagination()}
+            </>
+        );
+    }
+
     _renderItem({ item, index }) {
         const LeftContent = props => <Avatar.Icon {...props} icon={item.iconName} />
 
@@ -46,14 +64,16 @@ class Dashboard extends React.Component {
             <Card>
                 <Card.Title title={item.title} subtitle="Card Subtitle" left={LeftContent} />
                 <Card.Content>
-                    <Title>{item.title}</Title>
-                    <Paragraph>{item.title}</Paragraph>
+                    {
+                        index == 2 ? <Line /> : <Text>{item.text}</Text>
+                    }
+
                 </Card.Content>
             </Card>
         )
     }
 
-    get pagination() {
+    _pagination() {
         const { entries, activeSlide } = this.state;
         return (
             <Pagination
@@ -73,22 +93,6 @@ class Dashboard extends React.Component {
         );
     }
 
-    _carousel() {
-        return (
-            <>
-                <Carousel
-                    style={styles.carousel}
-                    layout={"default"}
-                    ref={ref => this.carousel = ref}
-                    data={this.state.entries}
-                    sliderWidth={SLIDER_WIDTH}
-                    itemWidth={ITEM_WIDTH}
-                    renderItem={this._renderItem}
-                    onSnapToItem={index => this.setState({ activeSlide: index })} />
-                {this.pagination}
-            </>
-        );
-    }
 
     render() {
         return (

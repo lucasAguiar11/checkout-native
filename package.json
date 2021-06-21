@@ -43,6 +43,7 @@
     "preset": "react-native"
   },
   "resolutions": {
-    "css-what": ">=5.0.1"
+    "css-what": ">=5.0.1",
+    "node-fetch": " >=2.6.1"
   }
 }

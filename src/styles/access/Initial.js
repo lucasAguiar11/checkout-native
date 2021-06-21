@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { theme } from '../../config/theme';
 
 const styles = StyleSheet.create({
     container: {
@@ -16,17 +17,19 @@ const styles = StyleSheet.create({
     },
 
     logo: {
-        width: 200,
-        height: 200,
-        resizeMode: 'contain',
+        width: 300,
+        height: 100,
+        resizeMode: 'cover',
         alignItems: 'center'
     },
 
     slogan: {
         fontSize: 20,
-        textTransform: 'capitalize',
         flexWrap: 'wrap',
-        lineHeight: 30
+        paddingLeft: 2,
+        paddingTop: 10,
+        paddingLeft: 30,
+        color: theme.colors.secondary,
     },
 
 });

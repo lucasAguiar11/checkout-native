@@ -15,10 +15,11 @@ const Initial = ({ navigation }) => {
             <View style={styles.containerLogo}>
                 <Image
                     style={styles.logo}
-                    source={require('../../assets/logo-cafe.png')}
+                    // source={require('../../assets/logo-cafe.png')}
+                    source={require('../../assets/banqi.png')}
                 />
                 <Text style={styles.slogan}>
-                    A MELHOR EXPERIÊNCIA EM CAFÉS
+                    BanQi, o Banco Q Te Banca.
                 </Text>
             </View>
             <View style={styles.containerButton} >

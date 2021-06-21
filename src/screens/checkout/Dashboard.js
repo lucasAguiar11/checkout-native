@@ -96,7 +96,7 @@ class Dashboard extends React.Component {
                 <WavyHeader />
                 <View style={styles.header}>
                     <Text style={styles.textWhite} >{this.state.presentation}</Text>
-                    <Title style={[styles.textWhite, styles.textBold]}>Lucas A</Title>
+                    <Title style={[styles.textWhite, styles.textBold]}>Lucas</Title>
                 </View>
                 <View style={styles.containerCarousel} >
                     {this._carousel()}

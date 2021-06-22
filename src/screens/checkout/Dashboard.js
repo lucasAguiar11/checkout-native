@@ -1,46 +1,118 @@
 import React from 'react';
 import { View, SafeAreaView } from "react-native";
-import { Card, withTheme, Avatar, Paragraph, Title, Text } from 'react-native-paper';
+import { Card, withTheme, Avatar, ProgressBar, Title, Text, IconButton } from 'react-native-paper';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 import { theme } from '../../config/theme';
-import { styles, SLIDER_WIDTH, ITEM_WIDTH } from '../../styles/checkout/Dashboard';
+import { styles, styleHeader, styleCarousel, SLIDER_WIDTH, ITEM_WIDTH } from '../../styles/checkout/Dashboard';
 import { WavyHeader } from '../../components/WavyBackground';
 import { definePeriod } from '../../helpers/Helpers';
-import Line from '../../components/charts/Line';
+import { Pie } from '../../components/Charts';
+import PlaceholderCardComponent from '../../components/PlaceholderComponent';
 
 class Dashboard extends React.Component {
+
     constructor(props) {
         super(props);
 
-        this.state = {
-            activeSlide: 0,
-            entries: [
-                {
-                    title: "Qtd. Links",
-                    text: "Text 1",
-                    iconName: 'cards',
-                    iconColor: ''
-                },
-                {
-                    title: "Valor Recebido",
-                    text: "Text 2",
-                    iconName: 'currency-usd-circle',
-                    iconColor: ''
-                },
-                {
-                    title: "Qtd. X Valor",
-                    text: "Text 3",
-                    iconName: 'chart-bell-curve',
-                    iconColor: ''
-                },
-            ],
-            presentation: definePeriod()
+        this.getCardData = this.getCardData.bind(this);
+        this._renderItem = this._renderItem.bind(this);
+    }
 
+    state = {
+        activeSlide: 0,
+        presentation: definePeriod(),
+        loadCardHeader: false,
+        entries: [{}, {}]
+    }
+
+    componentDidMount() {
+        this.getCardData();
+    }
+
+    getCardData() {
+
+        setTimeout(() => {
+            this.setState({
+                loadCardHeader: true,
+                entries: [{
+                    key: 'qtd',
+                    title: "Quantidade de Links",
+                    subtitle: "Links gerados nos últimos 7 dias.",
+                    value: 9,
+                    iconName: 'cards',
+                    iconColor: '',
+                },
+                {
+                    key: "amount",
+                    title: "Valores Recebidos",
+                    subtitle: "Total de links pagos nos últimos 7 dias.",
+                    amount: 100,
+                    total: 700,
+                    iconName: 'currency-usd-circle',
+                    iconColor: '',
+                }]
+            });
+        }, 3000);
+    }
+
+    getGrafhData() {
+    }
+
+    _renderItem({ item, index }) {
+
+        if (!this.state.loadCardHeader)
+            return (
+                <Card>
+                    <Card.Content style={[styles.cardContent, styleCarousel.containerCarousel]}>
+                        <PlaceholderCardComponent />
+                    </Card.Content>
+                </Card>
+            );
+
+        const LeftContent = props => <Avatar.Icon {...props} icon={item.iconName} style={styleCarousel.iconStyle} />
+
+        const Card1 = () => {
+            const _value = parseInt(item.value);
+            return (
+                <Card>
+                    <Card.Title title={item.title} subtitle={item.subtitle} left={LeftContent} />
+                    <Card.Content style={[styles.cardContent, styleCarousel.containerCarousel]}>
+                        <Text style={styleCarousel.qtdText} >{_value < 10 ? `0${_value}` : _value}</Text>
+                    </Card.Content>
+                </Card>
+            )
+        };
+
+        const Card2 = () => {
+
+            const _total = parseFloat(item.total).toFixed(2);
+            const _amount = parseFloat(item.amount).toFixed(2);
+            const _percent = (_amount) / _total;
+
+            return (
+                <Card>
+                    <Card.Title title={item.title} subtitle={item.subtitle} left={LeftContent} />
+                    <Card.Content style={styles.cardContent}>
+                        <Text>R$ {_amount}</Text>
+                        <ProgressBar progress={_percent} color={theme.colors.secondary} />
+                        <Text style={styleCarousel.total}>R$ {_total}</Text>
+                    </Card.Content>
+                </Card>
+            );
         }
+
+        const items = {
+            qtd: Card1(),
+            amount: Card2()
+        };
+
+        return items[item.key];
     }
 
     _carousel() {
+        const { entries, activeSlide } = this.state;
+
         return (
             <>
                 <Carousel
@@ -52,68 +124,58 @@ class Dashboard extends React.Component {
                     itemWidth={ITEM_WIDTH}
                     renderItem={this._renderItem}
                     onSnapToItem={index => this.setState({ activeSlide: index })} />
-                {this._pagination()}
+                <Pagination
+                    dotsLength={entries.length}
+                    activeDotIndex={activeSlide}
+                    dotStyle={{
+                        width: 10,
+                        height: 10,
+                        borderRadius: 5,
+                        marginHorizontal: 0,
+                        backgroundColor: theme.colors.secondary
+                    }}
+
+                    inactiveDotOpacity={0.4}
+                    inactiveDotScale={0.6}
+                />
             </>
         );
     }
 
-    _renderItem({ item, index }) {
-        const LeftContent = props => <Avatar.Icon {...props} icon={item.iconName} />
+    render() {
+        const Presentation = () => (<>
+            <WavyHeader />
+            <View style={[styleHeader.header, styles.row]}>
+                <View>
+                    <Text style={styleHeader.textWhite} >{this.state.presentation}</Text>
+                    <Title style={[styleHeader.textWhite, styleHeader.textBold]}>Lucas</Title>
+                </View>
 
-        return (
+                <IconButton
+                    icon="exit-to-app"
+                    size={30}
+                    color={'#ffff'}
+                    onPress={() => alert('Click em sair')}
+                />
+            </View>
+        </>);
+
+        const PaymentMethodChart = () => (
             <Card>
-                <Card.Title title={item.title} subtitle="Card Subtitle" left={LeftContent} />
-                <Card.Content>
-                    {
-                        index == 2 ? <Line /> : <Text>{item.text}</Text>
-                    }
-
+                <Card.Content style={styles.cardContent}>
+                    {/* <Pie /> */}
                 </Card.Content>
             </Card>
-        )
-    }
-
-    _pagination() {
-        const { entries, activeSlide } = this.state;
-        return (
-            <Pagination
-                dotsLength={entries.length}
-                activeDotIndex={activeSlide}
-                dotStyle={{
-                    width: 10,
-                    height: 10,
-                    borderRadius: 5,
-                    marginHorizontal: 0,
-                    backgroundColor: theme.colors.primary
-                }}
-
-                inactiveDotOpacity={0.4}
-                inactiveDotScale={0.6}
-            />
         );
-    }
 
-
-    render() {
         return (
             <SafeAreaView style={styles.container}>
-                <WavyHeader />
-                <View style={styles.header}>
-                    <Text style={styles.textWhite} >{this.state.presentation}</Text>
-                    <Title style={[styles.textWhite, styles.textBold]}>Lucas</Title>
-                </View>
-                <View style={styles.containerCarousel} >
+                <Presentation />
+                <View style={styleCarousel.containerCarousel} >
                     {this._carousel()}
                 </View>
                 <View style={[styles.row, styles.cardsQtd]}>
-                    <Card style={styles.shortcuts}>
-                        <Card.Content>
-                        </Card.Content>
-                    </Card>
-                    <Card style={styles.shortcuts}>
-                        <Card.Content>
-                        </Card.Content>
-                    </Card>
+                    <PaymentMethodChart />
                 </View>
 
             </SafeAreaView>

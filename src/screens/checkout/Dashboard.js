@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, SafeAreaView } from "react-native";
+import { View, SafeAreaView, ScrollView } from "react-native";
 import { Card, withTheme, Avatar, ProgressBar, Title, Text, IconButton } from 'react-native-paper';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 
-import { theme } from '../../config/theme';
+import { theme, rgbPrimary } from '../../config/theme';
 import { styles, styleHeader, styleCarousel, SLIDER_WIDTH, ITEM_WIDTH } from '../../styles/checkout/Dashboard';
 import { WavyHeader } from '../../components/WavyBackground';
 import { definePeriod } from '../../helpers/Helpers';
@@ -11,6 +11,7 @@ import { Pie } from '../../components/Charts';
 import PlaceholderCardComponent from '../../components/PlaceholderComponent';
 
 class Dashboard extends React.Component {
+    _isMounted = false;
 
     constructor(props) {
         super(props);
@@ -23,40 +24,83 @@ class Dashboard extends React.Component {
         activeSlide: 0,
         presentation: definePeriod(),
         loadCardHeader: false,
-        entries: [{}, {}]
+        loadChartPayMethod: false,
+        entries: [{}, {}],
+        chartPayMethod: []
     }
 
     componentDidMount() {
+        console.log('componentDidMount');
+        this._isMounted = true;
         this.getCardData();
+        this.getGrafhData();
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     getCardData() {
 
         setTimeout(() => {
-            this.setState({
-                loadCardHeader: true,
-                entries: [{
-                    key: 'qtd',
-                    title: "Quantidade de Links",
-                    subtitle: "Links gerados nos últimos 7 dias.",
-                    value: 9,
-                    iconName: 'cards',
-                    iconColor: '',
-                },
-                {
-                    key: "amount",
-                    title: "Valores Recebidos",
-                    subtitle: "Total de links pagos nos últimos 7 dias.",
-                    amount: 100,
-                    total: 700,
-                    iconName: 'currency-usd-circle',
-                    iconColor: '',
-                }]
-            });
+            if (this._isMounted)
+                this.setState({
+                    loadCardHeader: true,
+                    entries: [
+                        {
+                            key: "amount",
+                            title: "Valores Recebidos",
+                            subtitle: "Total de links pagos nos últimos 7 dias.",
+                            amount: 100,
+                            total: 700,
+                            iconName: 'currency-usd-circle',
+                            iconColor: '',
+                        },
+                        {
+                            key: 'qtd',
+                            title: "Quantidade de Links",
+                            subtitle: "Links gerados nos últimos 7 dias.",
+                            value: 9,
+                            iconName: 'cards',
+                            iconColor: '',
+                        },
+                    ]
+                });
         }, 3000);
     }
 
     getGrafhData() {
+
+        setTimeout(() => {
+            if (this._isMounted)
+                this.setState({
+                    chartPayMethod: true,
+                    chartPayMethod: [
+                        {
+                            name: "Crédito",
+                            value: 20,
+                            color: `rgba(${rgbPrimary.r}, ${rgbPrimary.g}, ${rgbPrimary.b}, 1)`,
+                            legendFontColor: "#000",
+                            legendFontSize: 14
+                        },
+                        {
+                            name: "Boleto",
+                            value: 10,
+                            color: `rgba(${rgbPrimary.r}, ${rgbPrimary.g}, ${rgbPrimary.b}, 0.5)`,
+                            legendFontColor: "#000",
+                            legendFontSize: 14
+                        },
+                        {
+                            name: "Pix",
+                            value: 6,
+                            color: `rgba(${rgbPrimary.r}, ${rgbPrimary.g}, ${rgbPrimary.b}, 0.25)`,
+                            legendFontColor: "#000",
+                            legendFontSize: 14
+                        }
+                    ]
+                });
+        }, 3100);
+
     }
 
     _renderItem({ item, index }) {
@@ -147,7 +191,7 @@ class Dashboard extends React.Component {
             <WavyHeader />
             <View style={[styleHeader.header, styles.row]}>
                 <View>
-                    <Text style={styleHeader.textWhite} >{this.state.presentation}</Text>
+                    <Text style={[styleHeader.textWhite, styleHeader.presentation]} >{this.state.presentation}</Text>
                     <Title style={[styleHeader.textWhite, styleHeader.textBold]}>Lucas</Title>
                 </View>
 
@@ -161,24 +205,32 @@ class Dashboard extends React.Component {
         </>);
 
         const PaymentMethodChart = () => (
-            <Card>
-                <Card.Content style={styles.cardContent}>
-                    {/* <Pie /> */}
-                </Card.Content>
-            </Card>
+            <View>
+                <Card>
+                    <Card.Content style={[styles.cardChart]}>
+                        <Text>Formas de Pagamento</Text>
+                        {
+                            this.state.loadChartPayMethod
+                                ? <Pie dt={this.state.chartPayMethod} />
+                                : <PlaceholderCardComponent h={18} w={30} marginHorizontal={0} marginVertical={15} lineMargin={4} />
+                        }
+
+                    </Card.Content>
+                </Card>
+            </View>
+
         );
 
         return (
-            <SafeAreaView style={styles.container}>
-                <Presentation />
-                <View style={styleCarousel.containerCarousel} >
-                    {this._carousel()}
-                </View>
-                <View style={[styles.row, styles.cardsQtd]}>
+            <ScrollView style={styles.scroll}>
+                <SafeAreaView style={styles.container}>
+                    <Presentation />
+                    <View style={styleCarousel.containerCarousel} >
+                        {this._carousel()}
+                    </View>
                     <PaymentMethodChart />
-                </View>
-
-            </SafeAreaView>
+                </SafeAreaView>
+            </ScrollView>
         )
     }
 }

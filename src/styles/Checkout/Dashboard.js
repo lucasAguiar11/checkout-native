@@ -2,12 +2,12 @@ import { StyleSheet, Dimensions } from "react-native";
 import { theme } from "../../config/theme";
 
 export const SLIDER_WIDTH = Dimensions.get('window').width + 80
-export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7)
+export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.75)
 
 
 export const styleHeader = StyleSheet.create({
     header: {
-        height: '20%',
+        height: 70,
         width: '100%',
         justifyContent: 'space-between'
     },
@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
     container: {
         padding: 20,
         backgroundColor: '#eeebec',
-        flex: 1
+        flex: 1,
     },
 
     row: {
@@ -66,5 +66,7 @@ export const styles = StyleSheet.create({
         marginTop: 10
     },
 
-
+    scroll: {
+        backgroundColor: '#eeebec',
+    }
 });

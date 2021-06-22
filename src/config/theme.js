@@ -1,7 +1,10 @@
 import { DefaultTheme } from 'react-native-paper'
 
+import { hexToRgb } from '../helpers/Helpers';
+
+
 export const theme = {
-  
+
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
@@ -10,6 +13,9 @@ export const theme = {
     background: '#ffffff'
   },
 }
+
+export const rgbPrimary = hexToRgb(theme.colors.primary);
+
 
 // primary: '#6a50a7',
 // secondary: '#8067b7',

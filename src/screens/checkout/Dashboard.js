@@ -41,7 +41,7 @@ class Dashboard extends React.Component {
     }
 
     getCardData() {
-
+        console.log('getCardData');
         setTimeout(() => {
             if (this._isMounted)
                 this.setState({
@@ -70,11 +70,11 @@ class Dashboard extends React.Component {
     }
 
     getGrafhData() {
-
+        console.log('getGrafhData');
         setTimeout(() => {
             if (this._isMounted)
                 this.setState({
-                    chartPayMethod: true,
+                    loadChartPayMethod: true,
                     chartPayMethod: [
                         {
                             name: "Crédito",
@@ -99,7 +99,7 @@ class Dashboard extends React.Component {
                         }
                     ]
                 });
-        }, 3100);
+        }, 1000);
 
     }
 
@@ -214,7 +214,6 @@ class Dashboard extends React.Component {
                                 ? <Pie dt={this.state.chartPayMethod} />
                                 : <PlaceholderCardComponent h={18} w={30} marginHorizontal={0} marginVertical={15} lineMargin={4} />
                         }
-
                     </Card.Content>
                 </Card>
             </View>

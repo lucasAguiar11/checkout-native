@@ -7,7 +7,7 @@ export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.75)
 
 export const styleHeader = StyleSheet.create({
     header: {
-        height: 70,
+        height: 75,
         width: '100%',
         justifyContent: 'space-between'
     },
@@ -64,6 +64,9 @@ export const styles = StyleSheet.create({
 
     cardContent: {
         marginTop: 10
+    },
+
+    cardChart: {
     },
 
     scroll: {

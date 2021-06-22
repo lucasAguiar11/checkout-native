@@ -37,11 +37,13 @@ export const Pie = ({ dt }) => {
     return (
         <PieChart
             data={data}
-            width={responsiveWidth(100)}
+            width={responsiveWidth(90)}
             height={200}
             chartConfig={chartConfig}
             accessor={"value"}
             backgroundColor={"transparent"}
+            paddingLeft={1}
+            xLabelsOffset={100}
             avoidFalseZero
         />);
 

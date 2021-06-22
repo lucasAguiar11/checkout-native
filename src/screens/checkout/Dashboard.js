@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, SafeAreaView, ScrollView } from "react-native";
+import { View, SafeAreaView, ScrollView, RefreshControl } from "react-native";
 import { Card, withTheme, Avatar, ProgressBar, Title, Text, IconButton } from 'react-native-paper';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 
@@ -7,8 +7,10 @@ import { theme, rgbPrimary } from '../../config/theme';
 import { styles, styleHeader, styleCarousel, SLIDER_WIDTH, ITEM_WIDTH } from '../../styles/checkout/Dashboard';
 import { WavyHeader } from '../../components/WavyBackground';
 import { definePeriod } from '../../helpers/Helpers';
-import { Pie } from '../../components/Charts';
+import { Pie, Line } from '../../components/Charts';
 import PlaceholderCardComponent from '../../components/PlaceholderComponent';
+
+
 
 class Dashboard extends React.Component {
     _isMounted = false;
@@ -18,9 +20,11 @@ class Dashboard extends React.Component {
 
         this.getCardData = this.getCardData.bind(this);
         this._renderItem = this._renderItem.bind(this);
+        this._onRefresh = this._onRefresh.bind(this);
     }
 
     state = {
+        refreshing: false,
         activeSlide: 0,
         presentation: definePeriod(),
         loadCardHeader: false,
@@ -101,6 +105,19 @@ class Dashboard extends React.Component {
                 });
         }, 1000);
 
+    }
+
+    _onRefresh() {
+        this.setState({ refreshing: true });
+        setTimeout(() => {
+            this.setState({ refreshing: false });
+            this.getCardData();
+            this.getGrafhData();
+        }, 3000);
+
+        // fetchData().then(() => {
+        //     this.setState({ refreshing: false });
+        // });
     }
 
     _renderItem({ item, index }) {
@@ -220,17 +237,36 @@ class Dashboard extends React.Component {
 
         );
 
+        const LastPaymentLinks = () => (
+            <View>
+                <Card>
+                    <Card.Content style={[styles.cardChart]}>
+                        <Text>Formas de Pagamento</Text>
+                        {<Line />}
+                    </Card.Content>
+                </Card>
+            </View>
+        );
+
         return (
-            <ScrollView style={styles.scroll}>
+            <ScrollView style={styles.scroll}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={this.state.refreshing}
+                        onRefresh={this._onRefresh}
+                    />
+                }
+            >
                 <SafeAreaView style={styles.container}>
                     <Presentation />
                     <View style={styleCarousel.containerCarousel} >
                         {this._carousel()}
                     </View>
                     <PaymentMethodChart />
+                    <LastPaymentLinks />
                 </SafeAreaView>
             </ScrollView>
-        )
+        );
     }
 }
 

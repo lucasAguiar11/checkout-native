@@ -42,34 +42,34 @@ export const styles = StyleSheet.create({
         backgroundColor: '#eeebec',
         flex: 1,
     },
-
     row: {
         flexDirection: "row",
         marginBottom: 10
     },
-
     shortcuts: {
         width: '49%',
         height: 100
     },
-
     shortcutsFullW: {
         width: '100%',
         height: 200
     },
-
     cardsQtd: {
         justifyContent: "space-between"
     },
-
     cardContent: {
         marginTop: 10
     },
-
     cardChart: {
+        marginVertical: 5,
     },
-
     scroll: {
         backgroundColor: '#eeebec',
+    },
+
+    cardContentChart:{
+        paddingHorizontal: 0,
+        alignItems: "center" 
     }
+
 });

@@ -10,8 +10,6 @@ import { definePeriod } from '../../helpers/Helpers';
 import { Pie, Line } from '../../components/Charts';
 import PlaceholderCardComponent from '../../components/PlaceholderComponent';
 
-
-
 class Dashboard extends React.Component {
     _isMounted = false;
 
@@ -114,10 +112,6 @@ class Dashboard extends React.Component {
             this.getCardData();
             this.getGrafhData();
         }, 3000);
-
-        // fetchData().then(() => {
-        //     this.setState({ refreshing: false });
-        // });
     }
 
     _renderItem({ item, index }) {
@@ -204,6 +198,7 @@ class Dashboard extends React.Component {
     }
 
     render() {
+
         const Presentation = () => (<>
             <WavyHeader />
             <View style={[styleHeader.header, styles.row]}>
@@ -222,9 +217,9 @@ class Dashboard extends React.Component {
         </>);
 
         const PaymentMethodChart = () => (
-            <View>
+            <View style={styles.cardChart}>
                 <Card>
-                    <Card.Content style={[styles.cardChart]}>
+                    <Card.Content>
                         <Text>Formas de Pagamento</Text>
                         {
                             this.state.loadChartPayMethod
@@ -238,14 +233,14 @@ class Dashboard extends React.Component {
         );
 
         const LastPaymentLinks = () => (
-            <View>
+            <View style={styles.cardChart}>
                 <Card>
-                    <Card.Content style={[styles.cardChart]}>
-                        <Text>Formas de Pagamento</Text>
-                        {<Line />}
+                    <Text style={{ paddingHorizontal: 15, paddingVertical: 15 }}>Links pagos dos últimos 7 dias</Text>
+                    <Card.Content style={styles.cardContentChart}>
+                        <Line />
                     </Card.Content>
                 </Card>
-            </View>
+            </View >
         );
 
         return (

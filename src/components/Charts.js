@@ -30,19 +30,12 @@ export const Pie = ({ dt }) => {
 
 }
 
-export const Line = () => {
+export const Line = ({ dt }) => {
 
     return (<LineChart
-        data={{
-            labels: ["18/06", "18/06", "19/06", "20/06", "21/06", "22/06", "23/06"],
-            datasets: [
-                {
-                    data: [Math.random() * 10, Math.random() * 10, Math.random() * 10, Math.random() * 10, Math.random() * 100, Math.random() * 100],
-                    strokeWidth: 2,
-                    color:  (opacity = 1) => `rgba(${rgbPrimary.r}, ${rgbPrimary.g}, ${rgbPrimary.b}, 1)`,
-                },
-            ],
-        }}
+        data={
+            dt
+        }
         width={responsiveWidth(85)}
         height={260}
         yAxisLabel={'R$ '}

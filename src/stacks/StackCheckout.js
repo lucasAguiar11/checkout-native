@@ -1,7 +1,6 @@
 import React from "react";
 import { createStackNavigator, HeaderBackButton } from "@react-navigation/stack";
 
-import Initial from "../stacks/InitialStack";
 import Checkout from "../screens/checkout/Checkout";
 
 const Stack = createStackNavigator();
@@ -17,7 +16,6 @@ const StackCheckout = () => {
             screenOptions={options}
         >
             <Stack.Screen name="Checkout" component={Checkout} options={{ headerShown: false }} />
-            <Stack.Screen name="Initial" component={Initial} />
         </Stack.Navigator>
     )
 };

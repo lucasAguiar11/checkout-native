@@ -10,13 +10,14 @@ import {
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
 
-const PlaceholderComponent = ({ w, h, marginHorizontal = 15, marginVertical = 6, borderRadius = 0, lineMargin = 1 }) => (
+const PlaceholderComponent = ({ w, h, marginHorizontal = 15, marginVertical = 6, borderRadius = 0, lineMargin = 1, paddingHorizontal = 0 }) => (
   <Placeholder
     Animation={ShineOverlay}
     style={{
       marginVertical: marginVertical,
       marginHorizontal: marginHorizontal,
       borderRadius: 4,
+      paddingHorizontal: paddingHorizontal
     }}
     Left={props => (
       <PlaceholderMedia

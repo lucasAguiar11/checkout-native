@@ -16,7 +16,6 @@ class Dashboard extends React.Component {
     constructor(props) {
         super(props);
 
-        this.getCardData = this.getCardData.bind(this);
         this._renderItem = this._renderItem.bind(this);
         this._onRefresh = this._onRefresh.bind(this);
     }
@@ -27,15 +26,18 @@ class Dashboard extends React.Component {
         presentation: definePeriod(),
         loadCardHeader: false,
         loadChartPayMethod: false,
+        loadChartPayLinks: false,
         entries: [{}, {}],
-        chartPayMethod: []
+        chartPayMethod: [],
+        chartPayLinks: []
     }
 
     componentDidMount() {
         console.log('componentDidMount');
         this._isMounted = true;
         this.getCardData();
-        this.getGrafhData();
+        this.getPayMethodData();
+        this.getPayLinks();
     }
 
     componentWillUnmount() {
@@ -71,8 +73,8 @@ class Dashboard extends React.Component {
         }, 3000);
     }
 
-    getGrafhData() {
-        console.log('getGrafhData');
+    getPayMethodData() {
+        console.log('getPayMethodData');
         setTimeout(() => {
             if (this._isMounted)
                 this.setState({
@@ -105,13 +107,41 @@ class Dashboard extends React.Component {
 
     }
 
+    getPayLinks() {
+        console.log('getPayLinks');
+        setTimeout(() => {
+            if (this._isMounted)
+                this.setState({
+                    loadChartPayLinks: true,
+                    chartPayLinks: {
+                        labels: ["18/06", "18/06", "19/06", "20/06", "21/06", "22/06", "23/06"],
+                        datasets: [
+                            {
+                                data: [
+                                    Math.random() * 10,
+                                    Math.random() * 10,
+                                    Math.random() * 10,
+                                    Math.random() * 10,
+                                    Math.random() * 100,
+                                    Math.random() * 100
+                                ],
+                                strokeWidth: 2,
+                                color: (opacity = 1) => `rgba(${rgbPrimary.r}, ${rgbPrimary.g}, ${rgbPrimary.b}, 1)`,
+                            },
+                        ],
+                    }
+                });
+        }, 5000);
+    }
+
     _onRefresh() {
-        this.setState({ refreshing: true });
+        this.setState({ refreshing: true, loadCardHeader: false, loadChartPayLinks: false, loadChartPayMethod: false });
         setTimeout(() => {
             this.setState({ refreshing: false });
             this.getCardData();
-            this.getGrafhData();
-        }, 3000);
+            this.getPayMethodData();
+            this.getPayLinks();
+        },1000);
     }
 
     _renderItem({ item, index }) {
@@ -211,7 +241,9 @@ class Dashboard extends React.Component {
                     icon="exit-to-app"
                     size={30}
                     color={'#ffff'}
-                    onPress={() => alert('Click em sair')}
+                    onPress={() => {
+                        console.log('Sair')
+                    }}
                 />
             </View>
         </>);
@@ -224,7 +256,12 @@ class Dashboard extends React.Component {
                         {
                             this.state.loadChartPayMethod
                                 ? <Pie dt={this.state.chartPayMethod} />
-                                : <PlaceholderCardComponent h={18} w={30} marginHorizontal={0} marginVertical={15} lineMargin={4} />
+                                : <PlaceholderCardComponent
+                                    h={18}
+                                    w={30}
+                                    marginHorizontal={0}
+                                    marginVertical={15}
+                                    lineMargin={4} />
                         }
                     </Card.Content>
                 </Card>
@@ -235,9 +272,19 @@ class Dashboard extends React.Component {
         const LastPaymentLinks = () => (
             <View style={styles.cardChart}>
                 <Card>
-                    <Text style={{ paddingHorizontal: 15, paddingVertical: 15 }}>Links pagos dos últimos 7 dias</Text>
+                    <Text style={styles.textPadding}>Links pagos dos últimos 7 dias</Text>
                     <Card.Content style={styles.cardContentChart}>
-                        <Line />
+                        {
+                            this.state.loadChartPayLinks
+                                ? <Line dt={this.state.chartPayLinks} />
+                                : <PlaceholderCardComponent
+                                    h={20}
+                                    w={30}
+                                    marginHorizontal={0}
+                                    marginVertical={15}
+                                    lineMargin={4}
+                                    paddingHorizontal={15} />
+                        }
                     </Card.Content>
                 </Card>
             </View >

@@ -67,9 +67,13 @@ export const styles = StyleSheet.create({
         backgroundColor: '#eeebec',
     },
 
-    cardContentChart:{
+    cardContentChart: {
         paddingHorizontal: 0,
-        alignItems: "center" 
-    }
+        alignItems: "center"
+    },
 
+    textPadding: {
+        paddingHorizontal: 15,
+        paddingVertical: 15
+    }
 });

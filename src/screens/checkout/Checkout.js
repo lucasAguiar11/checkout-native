@@ -25,7 +25,8 @@ export default function Checkout() {
             <Text style={[styles.label, { color: 'black' }]}>{route.name}</Text>
           </View>
         )
-      })}
+      }
+      )}
       tabBarOptions={{
         activeTintColor: theme.colors.primary,
         labelPosition: 'beside-icon',

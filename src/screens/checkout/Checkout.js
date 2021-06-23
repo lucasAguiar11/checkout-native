@@ -1,18 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { theme } from '../../config/theme';
 import Dashboard from './Dashboard';
-
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home!</Text>
-    </View>
-  );
-}
+import Products from './Products';
 
 function SettingsScreen() {
   return (
@@ -41,38 +33,11 @@ export default function Checkout() {
 
     >
       <Tab.Screen name="Acompanhar" component={Dashboard} />
-      <Tab.Screen name="Geração" component={SettingsScreen} />
+      <Tab.Screen name="Geração" component={Products} />
       <Tab.Screen name="Meus Dados" component={SettingsScreen} />
     </Tab.Navigator>
   );
 }
-// const RecentsRoute = () => <Text>Recents</Text>;
-
-// const Checkout = () => {
-//   const [index, setIndex] = React.useState(0);
-//   const [routes] = React.useState([
-//     { key: 'home', title: 'Acompanhar' },
-//     { key: 'recents', title: 'Gerar' },
-//     { key: 'recents1', title: 'Meus Dados', },
-//   ]);
-
-//   const renderScene = BottomNavigation.SceneMap({
-//     home: Dashboard,
-//     recents: RecentsRoute,
-//     recents1: RecentsRoute,
-//   });
-
-//   return (
-//     <BottomNavigation
-//       navigationState={{ index, routes }}
-//       onIndexChange={setIndex}
-//       renderScene={renderScene}
-//       barStyle={style.bar}
-//     />
-//   );
-// };
-
-// export default Checkout;
 
 const styles = StyleSheet.create({
   bar: {

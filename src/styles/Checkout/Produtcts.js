@@ -6,12 +6,12 @@ export const styleHeader = StyleSheet.create({
     container: {
         marginTop: 40,
     },
-    title:{
-        fontSize:18,
+    title: {
+        fontSize: 18,
         color: '#ffff',
         fontWeight: "bold",
     },
-    subtitle:{
+    subtitle: {
         color: '#ffff',
         flexWrap: "wrap",
         paddingVertical: 10
@@ -48,7 +48,7 @@ export const stylePrd = StyleSheet.create({
     nameProd: {
         fontSize: 12
     },
-    pricePrd:{
+    pricePrd: {
         color: theme.colors.secondary
     }
 });
@@ -74,11 +74,11 @@ export const style = StyleSheet.create({
     },
     scroll: {
     },
-    button:{
+    button: {
         marginTop: 0,
         borderRadius: 0,
         height: 50,
         justifyContent: 'center'
-    }
+    },
 });
 ;

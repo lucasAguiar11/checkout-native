@@ -8,7 +8,7 @@ import { styles, styleHeader, styleCarousel, SLIDER_WIDTH, ITEM_WIDTH } from '..
 import { WavyHeader } from '../../components/WavyBackground';
 import { definePeriod } from '../../helpers/Helpers';
 import { Pie, Line } from '../../components/Charts';
-import PlaceholderCardComponent from '../../components/PlaceholderComponent';
+import { PlaceholderComponent as PlaceholderCardComponent } from '../../components/PlaceholderComponent';
 
 class Dashboard extends React.Component {
     _isMounted = false;
@@ -141,7 +141,7 @@ class Dashboard extends React.Component {
             this.getCardData();
             this.getPayMethodData();
             this.getPayLinks();
-        },1000);
+        }, 1000);
     }
 
     _renderItem({ item, index }) {

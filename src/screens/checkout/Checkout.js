@@ -29,7 +29,8 @@ export default function Checkout() {
       }
       tabBarOptions={{
         activeTintColor: theme.colors.primary,
-        style: styles.bar
+        style: styles.bar,
+        keyboardHidesTabBar: true
       }}
 
     >

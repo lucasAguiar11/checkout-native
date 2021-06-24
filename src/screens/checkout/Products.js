@@ -5,7 +5,7 @@ import {
     Colors,
     Text,
     Searchbar,
-    Provider
+    Provider,
 } from 'react-native-paper';
 
 import { ScrollView, Image, View, RefreshControl } from 'react-native'
@@ -25,6 +25,7 @@ class Products extends React.Component {
 
         this._listProducts = this._listProducts.bind(this);
         this._onRefresh = this._onRefresh.bind(this);
+        this._openFAB = this._openFAB.bind(this);
     }
 
     state = {
@@ -151,6 +152,22 @@ class Products extends React.Component {
     }
 
 
+    _openFAB({ open }) {
+        this.setState({ open })
+    }
+    
+    _uncheckAll(){
+
+    }
+
+    
+    _checkAll(){
+        this.setState({
+
+        })   
+    }
+
+
     render() {
 
         const theme = this.props.theme;
@@ -161,11 +178,13 @@ class Products extends React.Component {
                     Seus Produtos
                 </Text>
                 <Text style={styleHeader.subtitle}>
-                    Selecione ou cadastre os produto do seu link de pagamento.</Text>
+                    Selecione ou cadastre os produto do seu link de pagamento.
+                </Text>
                 <Searchbar
                     placeholder="Buscar"
                     theme={theme}
                     value={this.state.searchQuery}
+                    onChangeText={(newText) => this.setState({ searchQuery: newText })}
                 />
             </View>
         );
@@ -190,18 +209,20 @@ class Products extends React.Component {
             );
         }
 
+
         return (
             <Provider>
+                <WavyHeader />
                 <ScrollView
                     refreshControl={
                         <RefreshControl
                             refreshing={this.state.refreshing}
                             onRefresh={this._onRefresh}
                         />
-                    }>
+                    }
+                >
                     <View style={style.mainContainer}>
-                        <WavyHeader />
-                        <Header />
+                        {Header()}
                         <View style={style.productsList} >
                             {this.state.loadedProducts ? this._listProducts() : <PlaceholderComponentList qtd={4} />}
                         </View>

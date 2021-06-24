@@ -5,6 +5,7 @@ import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimen
 export const styleHeader = StyleSheet.create({
     container: {
         marginTop: 40,
+        marginBottom: 25
     },
     title: {
         fontSize: 18,
@@ -15,6 +16,15 @@ export const styleHeader = StyleSheet.create({
         color: '#ffff',
         flexWrap: "wrap",
         paddingVertical: 10
+    },
+    fab: {
+        position: 'absolute',
+        right: 0,
+        bottom: 0
+    },
+    addProd:{
+        height: 40,
+        width: 200
     }
 });
 
@@ -48,18 +58,7 @@ export const stylePrd = StyleSheet.create({
     nameProd: {
         fontSize: 12
     },
-    pricePrd: {
-        color: theme.colors.secondary
-    }
 });
-
-
-export const styleFAB = StyleSheet.create({
-    fab: {
-        backgroundColor: theme.colors.secondary
-    }
-});
-
 
 export const style = StyleSheet.create({
     mainContainer: {
@@ -78,7 +77,14 @@ export const style = StyleSheet.create({
         marginTop: 0,
         borderRadius: 0,
         height: 50,
+        alignContent: 'center',
         justifyContent: 'center'
     },
+    fab: {
+        backgroundColor: theme.colors.secondary,
+    },
+    positionFab:{
+        bottom: responsiveHeight(20)
+    }
 });
 ;

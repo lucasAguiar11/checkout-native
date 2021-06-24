@@ -14,35 +14,10 @@ function SettingsScreen() {
   );
 }
 
-const Tab = createBottomTabNavigator();
-
-export default function Checkout() {
-  return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarLabel: ({ focused, color }) => (
-          <View style={[focused ? styles.borderFocus : null, styles.containerLabel]} >
-            <Text style={[styles.label, { color: 'black' }]}>{route.name}</Text>
-          </View>
-        )
-      }
-      )}
-      tabBarOptions={{
-        activeTintColor: theme.colors.primary,
-        labelPosition: 'beside-icon',
-      }}
-
-    >
-      <Tab.Screen name="Acompanhar" component={Dashboard} />
-      <Tab.Screen name="Geração" component={Products} />
-      <Tab.Screen name="Meus Dados" component={SettingsScreen} />
-    </Tab.Navigator>
-  );
-}
-
 const styles = StyleSheet.create({
   bar: {
     backgroundColor: '#fff',
+    height: '100%'
   },
   containerLabel: {
     height: '100%',
@@ -60,3 +35,31 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   }
 });
+
+const Tab = createBottomTabNavigator();
+
+export default function Checkout() {
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarLabel: ({ focused, color }) => (
+          <View style={[focused ? styles.borderFocus : null, styles.containerLabel]} >
+            <Text style={[styles.label, { color: 'black' }]}>{route.name}</Text>
+          </View>
+        )
+      }
+      )}
+      tabBarOptions={{
+        activeTintColor: theme.colors.primary,
+        labelPosition: 'beside-icon',
+        tabStyle: styles.bar
+      }}
+
+    >
+      <Tab.Screen name="Acompanhar" component={Dashboard} />
+      <Tab.Screen name="Geração" component={Products} />
+      <Tab.Screen name="Meus Dados" component={SettingsScreen} />
+    </Tab.Navigator>
+  );
+}
+

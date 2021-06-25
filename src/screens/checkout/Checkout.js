@@ -1,10 +1,14 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { theme } from '../../config/theme';
 import Dashboard from './Dashboard';
 import Products from './Products';
+
+import { styles } from '../../styles/checkout/Checkout';
+
+const Tab = createBottomTabNavigator();
 
 function SettingsScreen() {
   return (
@@ -14,16 +18,14 @@ function SettingsScreen() {
   );
 }
 
-const Tab = createBottomTabNavigator();
-
 export default function Checkout() {
   return (
     <Tab.Navigator
       screenOptions={
         ({ route }) => ({
-          tabBarLabel: ({ focused, color }) => (
+          tabBarLabel: ({ focused }) => (
             <View style={[focused ? styles.borderFocus : null, styles.containerLabel]} >
-              <Text style={[styles.label, { color: 'black' }]}>{route.name}</Text>
+              <Text style={styles.label}>{route.name}</Text>
             </View>)
         })
       }
@@ -40,24 +42,3 @@ export default function Checkout() {
     </Tab.Navigator>
   );
 }
-
-const styles = StyleSheet.create({
-  bar: {
-    height: 50
-  },
-  containerLabel: {
-    height: '100%',
-    paddingVertical: 10,
-    width: '100%',
-    alignItems: 'center',
-    borderTopWidth: 2.5,
-    borderColor: 'transparent'
-  },
-  borderFocus: {
-    borderTopColor: theme.colors.secondary,
-  },
-  label: {
-    alignContent: 'center',
-    justifyContent: 'center',
-  }
-});

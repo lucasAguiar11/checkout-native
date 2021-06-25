@@ -4,28 +4,11 @@ import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimen
 
 export const styleHeader = StyleSheet.create({
     container: {
-        marginTop: 40,
-        marginBottom: 25
+        elevation: 0,
+        paddingTop: 20,
+        marginVertical: 10,
+
     },
-    title: {
-        fontSize: 18,
-        color: '#ffff',
-        fontWeight: "bold",
-    },
-    subtitle: {
-        color: '#ffff',
-        flexWrap: "wrap",
-        paddingVertical: 10
-    },
-    fab: {
-        position: 'absolute',
-        right: 0,
-        bottom: 0
-    },
-    addProd:{
-        height: 40,
-        width: 200
-    }
 });
 
 

@@ -4,8 +4,10 @@ import {
     IconButton,
     Colors,
     Text,
-    Searchbar,
-    Provider,
+    Appbar,
+    Menu,
+    Divider,
+    Provider
 } from 'react-native-paper';
 
 import { ScrollView, Image, View, RefreshControl } from 'react-native'
@@ -15,20 +17,20 @@ import { WavyHeader } from '../../components/WavyBackground';
 import Button from '../../components/Button';
 import { PlaceholderComponentList } from '../../components/PlaceholderComponent';
 
-
 class Products extends React.Component {
-
-    _isMounted = false;
 
     constructor(props) {
         super(props);
 
         this._listProducts = this._listProducts.bind(this);
         this._onRefresh = this._onRefresh.bind(this);
-        this._openFAB = this._openFAB.bind(this);
     }
 
+    _isMounted = false;
+
+    //#region States e ciclo de vida
     state = {
+        menu: false,
         refreshing: false,
         open: false,
         searchQuery: "",
@@ -44,6 +46,10 @@ class Products extends React.Component {
     componentWillUnmount() {
         this._isMounted = false;
     }
+
+    //#endregion
+
+    //#region External data
 
     getProducts() {
         console.log('getProducts');
@@ -97,16 +103,10 @@ class Products extends React.Component {
         }, 3000);
     }
 
-    _setCheck(prd) {
-        const selectedPrd = this.state.products.find((x) => x.id == prd.id);
-        selectedPrd.selected = !selectedPrd.selected;
+    //#endregion
 
-        this.setState(prev => ({
-            ...prev,
-            availableGen: true,
-            selectedPrd
-        }));
-    }
+
+    //#region Make Screen
 
     _itemPrd({ prd }) {
 
@@ -138,6 +138,22 @@ class Products extends React.Component {
         });
     }
 
+    //#endregion
+
+
+    //#region Events
+
+    _setCheck(prd) {
+        const selectedPrd = this.state.products.find((x) => x.id == prd.id);
+        selectedPrd.selected = !selectedPrd.selected;
+
+        this.setState(prev => ({
+            ...prev,
+            availableGen: true,
+            selectedPrd
+        }));
+    }
+
     _genLink() {
         const prods = this.state.products;
         console.log(prods.some(x => x.selected));
@@ -151,42 +167,39 @@ class Products extends React.Component {
         }, 1000);
     }
 
+    _openMenu = () => this.setState({ menu: true });
 
-    _openFAB({ open }) {
-        this.setState({ open })
-    }
-    
-    _uncheckAll(){
+    _closeMenu = () => this.setState({ menu: false });
 
-    }
-
-    
-    _checkAll(){
-        this.setState({
-
-        })   
-    }
-
+    //#endregion
 
     render() {
 
         const theme = this.props.theme;
 
         const Header = () => (
-            <View style={styleHeader.container}>
-                <Text style={styleHeader.title}>
-                    Seus Produtos
-                </Text>
-                <Text style={styleHeader.subtitle}>
-                    Selecione ou cadastre os produto do seu link de pagamento.
-                </Text>
-                <Searchbar
-                    placeholder="Buscar"
-                    theme={theme}
-                    value={this.state.searchQuery}
-                    onChangeText={(newText) => this.setState({ searchQuery: newText })}
-                />
-            </View>
+            <Appbar.Header theme={theme} style={styleHeader.container}>
+                <Appbar.Content title="Seus Produtos" subtitle={'Selecione ou cadastre os produto.'} />
+                <Appbar.Action icon="magnify" onPress={() => { }} />
+                <Menu
+                    visible={this.state.menu}
+                    onDismiss={() => this.setState({menu:false})}
+                    anchor={
+                        <Appbar.Action
+                            icon={'dots-vertical'}
+                            color="white"
+                            onPress={this.setState({menu:true})}
+                        />
+                    }
+                >
+                    <Menu.Item onPress={() => { }} title="Undo" />
+                    <Menu.Item onPress={() => { }} title="Redo" />
+                    <Divider />
+                    <Menu.Item onPress={() => { }} title="Cut" disabled />
+                    <Menu.Item onPress={() => { }} title="Copy" disabled />
+                    <Menu.Item onPress={() => { }} title="Paste" />
+                </Menu>
+            </Appbar.Header>
         );
 
         const Footer = () => {
@@ -209,10 +222,34 @@ class Products extends React.Component {
             );
         }
 
-
         return (
             <Provider>
+              <View
+                style={{
+                  paddingTop: 50,
+                  flexDirection: 'row',
+                  justifyContent: 'center'
+                }}>
+                <Menu
+                  visible={this.state.visible}
+                  onDismiss={this._closeMenu}
+                  anchor={
+                    <Button onPress={this._openMenu}>Show menu</Button>
+                  }
+                >
+                  <Menu.Item onPress={() => {}} title="Item 1" />
+                  <Menu.Item onPress={() => {}} title="Item 2" />
+                  <Divider />
+                  <Menu.Item onPress={() => {}} title="Item 3" />
+                </Menu>
+              </View>
+            </Provider>
+          );
+          
+        return (
+            <>
                 <WavyHeader />
+                <Header />
                 <ScrollView
                     refreshControl={
                         <RefreshControl
@@ -222,16 +259,42 @@ class Products extends React.Component {
                     }
                 >
                     <View style={style.mainContainer}>
-                        {Header()}
                         <View style={style.productsList} >
                             {this.state.loadedProducts ? this._listProducts() : <PlaceholderComponentList qtd={4} />}
                         </View>
                     </View>
                 </ScrollView>
                 <Footer />
-            </Provider>
+            </>
         );
     }
 }
 
 export default withTheme(Products);
+
+// export default Products = () => {
+//     const [visible, setVisible] = React.useState(false);
+  
+//     const openMenu = () => setVisible(true);
+  
+//     const closeMenu = () => setVisible(false);
+  
+//     return (
+//         <View
+//           style={{
+//             paddingTop: 50,
+//             flexDirection: 'row',
+//             justifyContent: 'center',
+//           }}>
+//           <Menu
+//             visible={visible}
+//             onDismiss={closeMenu}
+//             anchor={<Button onPress={openMenu}>Show menu</Button>}>
+//             <Menu.Item onPress={() => {}} title="Item 1" />
+//             <Menu.Item onPress={() => {}} title="Item 2" />
+//             <Divider />
+//             <Menu.Item onPress={() => {}} title="Item 3" />
+//           </Menu>
+//         </View>
+//     );
+//   };

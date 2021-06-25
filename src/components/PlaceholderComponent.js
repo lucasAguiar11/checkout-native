@@ -45,7 +45,7 @@ export const PlaceholderComponentList = ({ qtd }) => {
   const elements = [];
   for (let index = 0; index < qtd; index++) {
     elements.push(
-      <View style={styles.surface}>
+      <View style={styles.surface} key={index}>
         <Placeholder
           Animation={ShineOverlay}
           style={{

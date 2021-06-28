@@ -29,7 +29,7 @@ export function WavyBackground({
     );
 }
 
-export function WavyHeader() {
+export function WavyHeader({ backgroundColor = '#eeebec' }) {
     const w = Dimensions.get('window').width;
     const h = Dimensions.get('window').height;
 
@@ -40,7 +40,7 @@ export function WavyHeader() {
                 width={w}
                 viewBox={`0 0 ${w} ${h}`}
             >
-                <Rect x="0" y="0" width={w} height={h} fill={'#eeebec'} />
+                <Rect x="0" y="0" width={w} height={h} fill={backgroundColor} />
                 <Path d="M0 153L37.5 163.8C75 174.7 150 196.3 225 195.7C300 195 375 172 412.5 160.5L450 149L450 0L412.5 0C375 0 300 0 225 0C150 0 75 0 37.5 0L0 0Z" stroke={theme.colors.primary} fill={theme.colors.primary} strokeWidth={4} stroke-linecap="round" stroke-linejoin="miter"></Path>
             </Svg>
         </View>

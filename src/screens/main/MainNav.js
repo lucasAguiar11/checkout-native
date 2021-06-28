@@ -5,18 +5,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { theme } from '../../config/theme';
 import Dashboard from './Dashboard';
 import ProductSelection from './ProductSelection';
+import Profile from './Profile';
 
 import { styles } from '../../styles/main/MainNav';
 
 const Tab = createBottomTabNavigator();
 
-function SettingsScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings!</Text>
-    </View>
-  );
-}
 
 export default function MainNav() {
   return (
@@ -38,7 +32,7 @@ export default function MainNav() {
     >
       <Tab.Screen name="Acompanhar" component={Dashboard} />
       <Tab.Screen name="Geração" component={ProductSelection} />
-      <Tab.Screen name="Meus Dados" component={SettingsScreen} />
+      <Tab.Screen name="Meus Dados" component={Profile} />
     </Tab.Navigator>
   );
 }

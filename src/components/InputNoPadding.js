@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     input: {
         backgroundColor: 'transparent',
         paddingHorizontal: 0,
-        fontSize: 16
+        fontSize: 16,
     },
     helpText:{
         display: 'none'

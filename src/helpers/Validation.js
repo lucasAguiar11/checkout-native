@@ -6,6 +6,18 @@ export function emailValidator(email) {
 }
 
 export function textValidator(name, fieldName) {
-  if (!name) return `O ${fieldName} não pode ser vazio.`;
+  if (!name) return `${fieldName} não pode ser vazio.`;
   return ''
+}
+
+export function currencyValidator(value, fieldName, allowNegative = false) {
+  if (!value) return `Preencha o campo '${fieldName}'`
+  if (isNaN(value))
+    return `Valor inválido para o campo.`;
+
+  const f = parseFloat(value).toFixed(2);
+  if(f <0 && !allowNegative)
+  return `Valor inválido para o campo.`;
+
+  console.log(f);
 }

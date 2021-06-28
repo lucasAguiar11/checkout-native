@@ -7,7 +7,7 @@ import {
     Appbar,
     Menu,
     Divider,
-    Provider
+    Searchbar
 } from 'react-native-paper';
 
 import { ScrollView, Image, View, RefreshControl } from 'react-native'
@@ -24,12 +24,14 @@ class Products extends React.Component {
 
         this._listProducts = this._listProducts.bind(this);
         this._onRefresh = this._onRefresh.bind(this);
+        this._productsOptions = this._productsOptions.bind(this);
     }
 
     _isMounted = false;
 
     //#region States e ciclo de vida
     state = {
+        searchClick: false,
         menu: false,
         refreshing: false,
         open: false,
@@ -40,6 +42,7 @@ class Products extends React.Component {
 
     componentDidMount() {
         this._isMounted = true;
+
         this.getProducts();
     }
 
@@ -105,7 +108,6 @@ class Products extends React.Component {
 
     //#endregion
 
-
     //#region Make Screen
 
     _itemPrd({ prd }) {
@@ -140,7 +142,6 @@ class Products extends React.Component {
 
     //#endregion
 
-
     //#region Events
 
     _setCheck(prd) {
@@ -160,7 +161,7 @@ class Products extends React.Component {
     }
 
     _onRefresh() {
-        this.setState({ refreshing: true, loadedProducts: false, products: [] });
+        this.setState({ refreshing: true, loadedProducts: false, products: [], searchQuery: "", searchClick: false });
         setTimeout(() => {
             this.setState({ refreshing: false });
             this.getProducts();
@@ -171,6 +172,14 @@ class Products extends React.Component {
 
     _closeMenu = () => this.setState({ menu: false });
 
+    _productsOptions(option) {
+        let prds = this.state.products;
+        prds.forEach(x => x.selected = option);
+        this.setState({
+            products: prds
+        })
+    }
+
     //#endregion
 
     render() {
@@ -180,27 +189,40 @@ class Products extends React.Component {
         const Header = () => (
             <Appbar.Header theme={theme} style={styleHeader.container}>
                 <Appbar.Content title="Seus Produtos" subtitle={'Selecione ou cadastre os produto.'} />
-                <Appbar.Action icon="magnify" onPress={() => { }} />
+                <Appbar.Action icon="magnify" onPress={() => { this.setState({ searchClick: true }) }} />
                 <Menu
+                    theme={theme}
                     visible={this.state.menu}
-                    onDismiss={() => this.setState({menu:false})}
+                    onDismiss={this._closeMenu}
                     anchor={
                         <Appbar.Action
                             icon={'dots-vertical'}
                             color="white"
-                            onPress={this.setState({menu:true})}
+                            onPress={this._openMenu}
                         />
                     }
                 >
-                    <Menu.Item onPress={() => { }} title="Undo" />
-                    <Menu.Item onPress={() => { }} title="Redo" />
+                    <Menu.Item onPress={() => this._productsOptions(true)} title="Selecionar todos" />
+                    <Menu.Item onPress={() => this._productsOptions(false)} title="Limpar seleção" />
                     <Divider />
-                    <Menu.Item onPress={() => { }} title="Cut" disabled />
-                    <Menu.Item onPress={() => { }} title="Copy" disabled />
-                    <Menu.Item onPress={() => { }} title="Paste" />
+                    <Menu.Item onPress={() => { alert('Nada aqui doido') }} title="Novo produto" />
                 </Menu>
             </Appbar.Header>
         );
+
+        const HeaderSearch = () => (
+            <Appbar.Header theme={theme} style={styleHeader.container}>
+                <Searchbar
+                    style={styleHeader.appbar}
+                    placeholder="Busca..."
+                    icon={'keyboard-backspace'}
+                    onIconPress={() => this.setState({ searchClick: false })}
+                    value={this.state.searchQuery}
+                    onChangeText={(txt) => this.setState({ searchQuery: txt })}
+                />
+            </Appbar.Header>
+        );
+
 
         const Footer = () => {
 
@@ -222,34 +244,13 @@ class Products extends React.Component {
             );
         }
 
-        return (
-            <Provider>
-              <View
-                style={{
-                  paddingTop: 50,
-                  flexDirection: 'row',
-                  justifyContent: 'center'
-                }}>
-                <Menu
-                  visible={this.state.visible}
-                  onDismiss={this._closeMenu}
-                  anchor={
-                    <Button onPress={this._openMenu}>Show menu</Button>
-                  }
-                >
-                  <Menu.Item onPress={() => {}} title="Item 1" />
-                  <Menu.Item onPress={() => {}} title="Item 2" />
-                  <Divider />
-                  <Menu.Item onPress={() => {}} title="Item 3" />
-                </Menu>
-              </View>
-            </Provider>
-          );
-          
+
         return (
             <>
                 <WavyHeader />
-                <Header />
+
+                {this.state.searchClick ? HeaderSearch() : Header()}
+
                 <ScrollView
                     refreshControl={
                         <RefreshControl
@@ -271,30 +272,3 @@ class Products extends React.Component {
 }
 
 export default withTheme(Products);
-
-// export default Products = () => {
-//     const [visible, setVisible] = React.useState(false);
-  
-//     const openMenu = () => setVisible(true);
-  
-//     const closeMenu = () => setVisible(false);
-  
-//     return (
-//         <View
-//           style={{
-//             paddingTop: 50,
-//             flexDirection: 'row',
-//             justifyContent: 'center',
-//           }}>
-//           <Menu
-//             visible={visible}
-//             onDismiss={closeMenu}
-//             anchor={<Button onPress={openMenu}>Show menu</Button>}>
-//             <Menu.Item onPress={() => {}} title="Item 1" />
-//             <Menu.Item onPress={() => {}} title="Item 2" />
-//             <Divider />
-//             <Menu.Item onPress={() => {}} title="Item 3" />
-//           </Menu>
-//         </View>
-//     );
-//   };

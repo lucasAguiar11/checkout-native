@@ -9,6 +9,10 @@ export const styleHeader = StyleSheet.create({
         marginVertical: 10,
 
     },
+    appbar:{
+        elevation: 0,
+        margin: 10,
+    }
 });
 
 

@@ -18,7 +18,7 @@ const InitialStack = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName="StackCheckout"
+      initialRouteName="Initial"
       screenOptions={options}
     >
       <Stack.Screen name="Initial" component={Initial} options={{ headerShown: false }} />

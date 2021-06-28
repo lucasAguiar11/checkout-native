@@ -4,9 +4,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { theme } from '../../config/theme';
 import Dashboard from './Dashboard';
-import Products from './Products';
+import ProductSelection from './ProductSelection';
 
-import { styles } from '../../styles/checkout/Checkout';
+import { styles } from '../../styles/main/MainNav';
 
 const Tab = createBottomTabNavigator();
 
@@ -18,7 +18,7 @@ function SettingsScreen() {
   );
 }
 
-export default function Checkout() {
+export default function MainNav() {
   return (
     <Tab.Navigator
       screenOptions={
@@ -37,7 +37,7 @@ export default function Checkout() {
 
     >
       <Tab.Screen name="Acompanhar" component={Dashboard} />
-      <Tab.Screen name="Geração" component={Products} />
+      <Tab.Screen name="Geração" component={ProductSelection} />
       <Tab.Screen name="Meus Dados" component={SettingsScreen} />
     </Tab.Navigator>
   );

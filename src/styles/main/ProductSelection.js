@@ -49,7 +49,7 @@ export const stylePrd = StyleSheet.create({
 
 export const style = StyleSheet.create({
     mainContainer: {
-        minHeight: responsiveHeight(90),
+        minHeight: responsiveHeight(70),
         paddingHorizontal: 15,
         paddingBottom: 1
     },

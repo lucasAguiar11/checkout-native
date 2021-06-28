@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator, HeaderBackButton } from "@react-navigation/stack";
 
-import Checkout from "../screens/checkout/Checkout";
+import MainNav from "../screens/main/MainNav";
 
 const Stack = createStackNavigator();
 const StackCheckout = () => {
@@ -12,10 +12,10 @@ const StackCheckout = () => {
 
     return (
         <Stack.Navigator
-            initialRouteName="Checkout"
+            initialRouteName="MainNav"
             screenOptions={options}
         >
-            <Stack.Screen name="Checkout" component={Checkout} options={{ headerShown: false }} />
+            <Stack.Screen name="MainNav" component={MainNav} options={{ headerShown: false }} />
         </Stack.Navigator>
     )
 };

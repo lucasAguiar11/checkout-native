@@ -1,23 +1,14 @@
 import React from 'react';
-import {
-    withTheme,
-    IconButton,
-    Colors,
-    Text,
-    Appbar,
-    Menu,
-    Divider,
-    Searchbar
-} from 'react-native-paper';
-
+import { withTheme, IconButton, Colors, Text, Appbar, Menu, Divider, Searchbar } from 'react-native-paper';
 import { ScrollView, Image, View, RefreshControl } from 'react-native'
 
-import { style, stylePrd, styleHeader } from '../../styles/checkout/Produtcts';
+import { style, stylePrd, styleHeader } from '../../styles/main/ProductSelection';
 import { WavyHeader } from '../../components/WavyBackground';
 import Button from '../../components/Button';
 import { PlaceholderComponentList } from '../../components/PlaceholderComponent';
+import EmptyState from '../../components/EmptyState';
 
-class Products extends React.Component {
+class ProductSelection extends React.Component {
 
     constructor(props) {
         super(props);
@@ -42,7 +33,6 @@ class Products extends React.Component {
 
     componentDidMount() {
         this._isMounted = true;
-
         this.getProducts();
     }
 
@@ -135,6 +125,15 @@ class Products extends React.Component {
 
     _listProducts() {
         const products = this.state.products;
+
+        if (products.length <= 0)
+            return <EmptyState
+                headerText={'Ops... Nenhum produto encontrado.'}
+                subHeaderText={'Por favor, cadastre um produto para continuar a geração do seu link de pagamento.'}
+                buttonText={'Cadastrar'}
+                onButtonClick={() => console.log('cadastrar')}
+            />
+
         return products.map((e, i) => {
             return this._itemPrd({ prd: e });
         });
@@ -177,7 +176,9 @@ class Products extends React.Component {
         prds.forEach(x => x.selected = option);
         this.setState({
             products: prds
-        })
+        });
+
+        this._closeMenu();
     }
 
     //#endregion
@@ -261,7 +262,9 @@ class Products extends React.Component {
                 >
                     <View style={style.mainContainer}>
                         <View style={style.productsList} >
-                            {this.state.loadedProducts ? this._listProducts() : <PlaceholderComponentList qtd={4} />}
+                            {this.state.loadedProducts
+                                ? this._listProducts()
+                                : <PlaceholderComponentList qtd={6} />}
                         </View>
                     </View>
                 </ScrollView>
@@ -271,4 +274,4 @@ class Products extends React.Component {
     }
 }
 
-export default withTheme(Products);
+export default withTheme(ProductSelection);

@@ -4,7 +4,7 @@ import { Card, withTheme, Avatar, ProgressBar, Title, Text, IconButton } from 'r
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 import { theme, rgbPrimary } from '../../config/theme';
-import { styles, styleHeader, styleCarousel, SLIDER_WIDTH, ITEM_WIDTH } from '../../styles/checkout/Dashboard';
+import { styles, styleHeader, styleCarousel, SLIDER_WIDTH, ITEM_WIDTH } from '../../styles/main/Dashboard';
 import { WavyHeader } from '../../components/WavyBackground';
 import { definePeriod } from '../../helpers/Helpers';
 import { Pie, Line } from '../../components/Charts';

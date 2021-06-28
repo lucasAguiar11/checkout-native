@@ -6,9 +6,10 @@ import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimen
 
 export const styles = StyleSheet.create({
     main: {
-        marginTop: '25%',
+        marginTop: '30%',
         alignItems: 'center',
         flex: 1,
+        padding: 15
     },
     row: {
         flexDirection: 'row',
@@ -21,5 +22,9 @@ export const styles = StyleSheet.create({
         marginTop: 8,
         fontSize: 24,
         fontWeight: '700'
+    },
+    fields:{
+        width: '100%',
+        padding: 20
     }
 });

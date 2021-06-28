@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { withTheme, Avatar, Text, TextInput } from 'react-native-paper';
+import { withTheme, Avatar, Text, Colors } from 'react-native-paper';
 
 import { WavyHeader } from '../../components/WavyBackground';
 import { styles } from '../../styles/main/Profile';
@@ -25,7 +25,7 @@ class Profile extends React.Component {
 
         return (
             <>
-                <WavyHeader />
+                <WavyHeader backgroundColor={Colors.white} />
                 <View style={styles.main}>
                     <Avatar.Icon size={100} icon="account" theme={theme} style={styles.avatar} />
                     <Text style={styles.profileName}>Lucas Aguiar</Text>

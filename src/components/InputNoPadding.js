@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { TextInput, HelperText } from 'react-native-paper';
 import { theme } from '../config/theme';
 
-export default function Input({ errorText, ...props }) {
+export default function Input({innerRef, errorText, ...props }) {
     let stylesArr = [styles.input];
 
     if (props.style)
@@ -15,6 +15,7 @@ export default function Input({ errorText, ...props }) {
                 theme={theme}
                 {...props}
                 style={stylesArr}
+                ref={innerRef}
             />
             <HelperText style={!errorText ? styles.helpText : null} type={'error'} visible={!!errorText} padding={'none'} >
                 {errorText}

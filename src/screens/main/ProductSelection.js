@@ -131,7 +131,7 @@ class ProductSelection extends React.Component {
                 headerText={'Ops... Nenhum produto encontrado.'}
                 subHeaderText={'Por favor, cadastre um produto para continuar a geração do seu link de pagamento.'}
                 buttonText={'Cadastrar'}
-                onButtonClick={() => console.log('cadastrar')}
+                onButtonClick={() => this._newProduct()}
             />
 
         return products.map((e, i) => {
@@ -181,6 +181,11 @@ class ProductSelection extends React.Component {
         this._closeMenu();
     }
 
+    _newProduct() {
+        this.props.navigation.navigate('Product');
+        this._closeMenu();
+    }
+
     //#endregion
 
     render() {
@@ -206,7 +211,7 @@ class ProductSelection extends React.Component {
                     <Menu.Item onPress={() => this._productsOptions(true)} title="Selecionar todos" />
                     <Menu.Item onPress={() => this._productsOptions(false)} title="Limpar seleção" />
                     <Divider />
-                    <Menu.Item onPress={() => { alert('Nada aqui doido') }} title="Novo produto" />
+                    <Menu.Item onPress={() => this._newProduct()} title="Novo produto" />
                 </Menu>
             </Appbar.Header>
         );

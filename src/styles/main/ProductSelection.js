@@ -1,6 +1,6 @@
-import { StyleSheet } from "react-native";
-import { theme } from "../../config/theme";
-import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
+import {StyleSheet} from "react-native";
+import {theme} from "../../config/theme";
+import {responsiveHeight, responsiveWidth} from 'react-native-responsive-dimensions';
 
 export const styleHeader = StyleSheet.create({
     container: {
@@ -9,7 +9,7 @@ export const styleHeader = StyleSheet.create({
         marginVertical: 10,
 
     },
-    appbar:{
+    appbar: {
         elevation: 0,
         margin: 10,
     }
@@ -29,6 +29,7 @@ export const stylePrd = StyleSheet.create({
     },
     Img: {
         height: 150,
+        width: 'auto',
         borderRadius: 5,
     },
     innerContainer: {
@@ -36,13 +37,11 @@ export const stylePrd = StyleSheet.create({
         flexDirection: 'row',
     },
     fav: {
-        alignItems: 'flex-end',
-        justifyContent: 'center',
-        position: 'absolute',
-        top: 0,
-        right: 0
+        flexDirection: 'row',
+        justifyContent: 'flex-end'
     },
     nameProd: {
+        marginTop: 10,
         fontSize: 12
     },
 });
@@ -58,8 +57,7 @@ export const style = StyleSheet.create({
         flexWrap: 'wrap',
         justifyContent: "space-between",
     },
-    scroll: {
-    },
+    scroll: {},
     button: {
         marginTop: 0,
         borderRadius: 0,
@@ -70,7 +68,7 @@ export const style = StyleSheet.create({
     fab: {
         backgroundColor: theme.colors.secondary,
     },
-    positionFab:{
+    positionFab: {
         bottom: responsiveHeight(20)
     }
 });

@@ -11,6 +11,25 @@ class ProductsStorage {
         }
     }
 
+    async deleteById(id) {
+        console.log('deleteById ', id);
+
+        try {
+
+            const value = await AsyncStorage.getItem(this.key)
+            const products = value != null ? JSON.parse(value) : null
+
+            if (products === null) return;
+
+            const newProducts = products.filter((x) => x.id !== id);
+            console.log(newProducts)
+            await AsyncStorage.setItem(this.key, JSON.stringify(newProducts));
+
+        } catch (e) {
+            console.error(e)
+        }
+    }
+
     async getAll() {
         try {
             const value = await AsyncStorage.getItem(this.key)

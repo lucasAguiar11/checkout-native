@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
     slogan: {
         fontSize: 20,
         flexWrap: 'wrap',
-        paddingLeft: 2,
         paddingTop: 10,
         paddingLeft: 30,
         color: theme.colors.secondary,

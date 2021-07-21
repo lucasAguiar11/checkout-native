@@ -41,15 +41,12 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     buttonStyle: {
-        borderColor: theme.colors.primary,
-        backgroundColor: theme.colors.primary,
-        borderRadius: 50,
-        borderWidth: 1,
+        borderWidth: 0,
+        borderRadius: 5,
         paddingHorizontal: 70,
         paddingVertical: 10,
     },
     buttonTextStyle: {
-        color: '#fff',
         textDecorationLine: 'none',
     },
 });

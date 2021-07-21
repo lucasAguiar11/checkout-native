@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, ScrollView} from 'react-native';
-import {withTheme, HelperText} from 'react-native-paper';
+import {withTheme, HelperText, Snackbar, Provider} from 'react-native-paper';
 
 import Input from '../../components/InputNoPadding';
 import Button from '../../components/Button';
@@ -15,23 +15,14 @@ import {uuidv4} from "../../helpers/Helpers";
 class Product extends React.Component {
     constructor(props) {
         super(props);
-        this.props.navigation.goBack = () => console.log("aaaaaaaa");
     }
 
     state = {
+        snackBarVisible: false,
         image: null,
         click: false,
         productName: {value: '', error: ''},
         productValue: {value: '', error: ''},
-    }
-
-
-    async getProducts() {
-        console.log(await ProductsStorage.getAll())
-    }
-
-    async removeProducts() {
-        await ProductsStorage.deleteAll()
     }
 
     async register() {
@@ -63,15 +54,26 @@ class Product extends React.Component {
         console.log("json -> ", productToRegister);
         await ProductsStorage.set(productToRegister);
 
-        this.setState(() => ({click: false}));
+        this.setState(() => ({click: false, snackBarVisible: true}));
+        this.clearInputs();
+    }
+
+    clearInputs() {
+        this.setState(() => (
+            {
+                image: null,
+                click: false,
+                productName: {value: null, error: null},
+                productValue: {value: null, error: null},
+            }));
     }
 
     render() {
 
         const theme = this.props.theme;
         return (
-            <ScrollView>
-                <View style={styles.container}>
+            <Provider>
+                <ScrollView style={styles.container}>
                     <View>
                         <ImagePicker onImageResult={(img) => this.setState({image: img})}/>
                         <Input
@@ -110,6 +112,7 @@ class Product extends React.Component {
                         >
                             Valor unitário do produto anunciado.
                         </HelperText>
+
                     </View>
                     <View>
                         <Button
@@ -120,25 +123,21 @@ class Product extends React.Component {
                         >
                             {this.state.click ? null : "Salvar"}
                         </Button>
-                        <Button
-                            theme={theme}
-                            mode={'contained'}
-                            loading={this.state.click}
-                            onPress={() => this.getProducts()}
-                        >
-                            Get
-                        </Button>
-                        <Button
-                            theme={theme}
-                            mode={'contained'}
-                            loading={this.state.click}
-                            onPress={() => this.removeProducts()}
-                        >
-                            Truncate
-                        </Button>
                     </View>
-                </View>
-            </ScrollView>
+                </ScrollView>
+                <Snackbar
+                    duration={3000}
+                    theme={theme}
+                    visible={this.state.snackBarVisible}
+                    onDismiss={() => this.setState({snackBarVisible: false})}
+                    action={{
+                        label: 'Visualizar',
+                        onPress: () => this.props.navigation.goBack(),
+                    }}>
+                    Produto Cadastrado!
+                </Snackbar>
+            </Provider>
+
         );
     }
 }

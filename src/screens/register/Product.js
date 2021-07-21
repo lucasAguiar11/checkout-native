@@ -9,33 +9,42 @@ import {styles} from '../../styles/register/Product';
 import {textValidator, currencyValidator} from '../../helpers/Validation';
 import ImagePicker from '../../components/ImagePicker';
 
+import ProductsStorage from "../../storage/ProductsStorage";
+import {uuidv4} from "../../helpers/Helpers";
+
 class Product extends React.Component {
     constructor(props) {
         super(props);
+        this.props.navigation.goBack = () => console.log("aaaaaaaa");
     }
 
     state = {
         image: null,
         click: false,
         productName: {value: '', error: ''},
-        productDesc: {value: '', error: ''},
         productValue: {value: '', error: ''},
     }
 
 
-    register() {
+    async getProducts() {
+        console.log(await ProductsStorage.getAll())
+    }
+
+    async removeProducts() {
+        await ProductsStorage.deleteAll()
+    }
+
+    async register() {
         const name = textValidator(this.state.productName.value, 'Nome');
-        const desc = textValidator(this.state.productDesc.value, 'Descrição');
         const value = currencyValidator(this.state.productValue.value, 'Valor (R$)')
 
         this.setState(() => ({click: true}));
 
-        if (name || desc || value) {
+        if (name || value) {
             this.setState((prevState) => (
                 {
                     click: false,
                     productName: {...prevState.productName, error: name},
-                    productDesc: {...prevState.productDesc, error: desc},
                     productValue: {...prevState.productValue, error: value},
                 }));
 
@@ -43,10 +52,18 @@ class Product extends React.Component {
         }
 
         console.log("to register")
-        console.log("productName -> ", this.state.productName.value);
-        console.log("productDesc -> ", this.state.productDesc.value);
-        console.log("productValue -> ", this.state.productValue.value);
-        console.log("image -> ", this.state.image);
+
+        let productToRegister = [{
+            id: uuidv4(),
+            name: this.state.productName.value,
+            amount: this.state.productValue.value,
+            urlImg: this.state.image !== null ? `data:image/png;base64, ${this.state.image.base64}` : null,
+            selected: false,
+        }];
+        console.log("json -> ", productToRegister);
+        await ProductsStorage.set(productToRegister);
+
+        this.setState(() => ({click: false}));
     }
 
     render() {
@@ -66,31 +83,13 @@ class Product extends React.Component {
                             returnKeyType={"next"}
                             onChangeText={(text) => this.setState({productName: {value: text, error: ''}})}
                             blurOnSubmit={false}
-                            onSubmitEditing={() => this.desc.focus()}
-                        />
-                        <HelperText
-                            type="info"
-                            padding='none'
-                        >
-                            Digite o nome do produto que deseja gerar o link de pagamento.
-                        </HelperText>
-                        <Input
-                            label="Descrição"
-                            multiline={true}
-                            theme={theme}
-                            value={this.state.productDesc.value}
-                            error={!!this.state.productDesc.error}
-                            errorText={this.state.productDesc.error}
-                            onChangeText={(text) => this.setState({productDesc: {value: text, error: ''}})}
-                            innerRef={ref => this.desc = ref}
-                            returnKeyType={"next"}
                             onSubmitEditing={() => this.amount.focus()}
                         />
                         <HelperText
                             type="info"
                             padding='none'
                         >
-                            Uma pequena descrição do seu produto.
+                            Digite o nome do produto que deseja gerar o link de pagamento.
                         </HelperText>
                         <Input
                             label="Valor (R$)"
@@ -102,6 +101,7 @@ class Product extends React.Component {
                                 this.setState({productValue: {value: text, error: ''}})
                             }}
                             keyboardType="numeric"
+                            returnKeyType={"done"}
                             innerRef={ref => this.amount = ref}
                         />
                         <HelperText
@@ -119,6 +119,22 @@ class Product extends React.Component {
                             onPress={() => this.register()}
                         >
                             {this.state.click ? null : "Salvar"}
+                        </Button>
+                        <Button
+                            theme={theme}
+                            mode={'contained'}
+                            loading={this.state.click}
+                            onPress={() => this.getProducts()}
+                        >
+                            Get
+                        </Button>
+                        <Button
+                            theme={theme}
+                            mode={'contained'}
+                            loading={this.state.click}
+                            onPress={() => this.removeProducts()}
+                        >
+                            Truncate
                         </Button>
                     </View>
                 </View>

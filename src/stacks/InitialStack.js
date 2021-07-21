@@ -10,7 +10,7 @@ import Pass from "../screens/access/Pass";
 const Stack = createStackNavigator();
 const InitialStack = () => {
 
-  options = {
+  let options = {
     ...TransitionPresets.SlideFromRightIOS,
     headerTitleAlign: 'center',
     headerLeft: (props) => (<HeaderBackButton {...props} tintColor={theme.colors.primary} />),

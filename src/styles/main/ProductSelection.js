@@ -29,7 +29,7 @@ export const stylePrd = StyleSheet.create({
     },
     Img: {
         height: 150,
-        borderRadius: 20,
+        borderRadius: 5,
     },
     innerContainer: {
         backgroundColor: 'red',

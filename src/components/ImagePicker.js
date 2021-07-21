@@ -44,6 +44,7 @@ const Img = ({onImageResult}) => {
             videoQuality: 'low',
             durationLimit: 30,
             saveToPhotos: true,
+            includeBase64: true
         };
 
         let isCameraPermitted = await requestCameraPermission();
@@ -58,7 +59,7 @@ const Img = ({onImageResult}) => {
             const item = assets != null ? assets[0] : null;
 
             if (response.didCancel) {
-                this.setState({image: null});
+                setFilePath(null);
                 console.log('User cancelled camera picker');
                 return;
             } else if (response.errorCode === 'camera_unavailable') {
@@ -92,7 +93,7 @@ const Img = ({onImageResult}) => {
             maxWidth: 300,
             maxHeight: 550,
             quality: 1,
-            includeBase64: false
+            includeBase64: true
         };
         launchImageLibrary(options, response => {
             console.log('Response = ', response);
@@ -101,7 +102,7 @@ const Img = ({onImageResult}) => {
             const item = assets != null ? assets[0] : null;
 
             if (response.didCancel) {
-                this.setState({image: null});
+                setFilePath(null);
                 console.log('User cancelled camera picker');
                 return;
             } else if (response.errorCode === 'camera_unavailable') {

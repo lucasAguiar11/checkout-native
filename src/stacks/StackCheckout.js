@@ -20,14 +20,6 @@ function CustomNavigationBar({ navigation, previous, title }) {
 
 const StackCheckout = () => {
 
-    options = {
-        headerTitleAlign: 'center',
-        header: (props) => {
-            const title = props.scene.descriptor.options.title;
-            return <CustomNavigationBar {...props} title={title} />
-        },
-    };
-
     return (
         <Stack.Navigator
             initialRouteName="MainNav"
@@ -39,7 +31,7 @@ const StackCheckout = () => {
             }}
         >
             <Stack.Screen name="MainNav" component={MainNav} options={{ headerShown: false }} />
-            <Stack.Screen name="Product" options={{ title: 'Novo Produto' }} component={Product} />
+            <Stack.Screen name="Product" options={{ title: 'Novo Produto' }} component={Product}  />
 
         </Stack.Navigator>
     )

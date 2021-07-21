@@ -18,6 +18,4 @@ export function currencyValidator(value, fieldName, allowNegative = false) {
   const f = parseFloat(value).toFixed(2);
   if(f <0 && !allowNegative)
   return `Valor inválido para o campo.`;
-
-  console.log(f);
 }

@@ -64,7 +64,7 @@ const Img = ({onImageResult}) => {
 
         if (!isCameraPermitted || !isStoragePermitted) return;
 
-        await launchCamera(options, (response) => {
+        await launchCamera(options, async response => {
 
             console.log('Response = ', response);
             const {assets} = response;
@@ -100,7 +100,7 @@ const Img = ({onImageResult}) => {
             includeBase64: true
         };
 
-        await launchImageLibrary(options, response => {
+        await launchImageLibrary(options, async response => {
             console.log('Response = ', response);
 
             const {assets} = response;
@@ -171,10 +171,10 @@ export default withTheme(Img);
 const styles = StyleSheet.create({
     removeImg: {
         position: 'absolute',
-        bottom: 210,
-        right: 0
+        left: 0,
     },
     actions: {
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        justifyContent: 'flex-end'
     }
 });

@@ -21,7 +21,6 @@ export const stylePrd = StyleSheet.create({
         width: responsiveWidth(45),
         marginVertical: 10,
         backgroundColor: '#fff',
-        padding: 10,
     },
     actions: {
         justifyContent: 'flex-end',
@@ -30,7 +29,6 @@ export const stylePrd = StyleSheet.create({
     Img: {
         height: 150,
         width: 'auto',
-        borderRadius: 5,
     },
     innerContainer: {
         backgroundColor: 'red',
@@ -44,6 +42,10 @@ export const stylePrd = StyleSheet.create({
         marginTop: 10,
         fontSize: 12
     },
+    textContainer: {
+        paddingHorizontal: 10
+    }
+
 });
 
 export const style = StyleSheet.create({

@@ -83,7 +83,7 @@ class ProductSelection extends React.Component {
             <View key={prd.id} style={stylePrd.card}>
                 <Image source={prd.urlImg == null ? require('../../assets/default.jpg') : {uri: prd.urlImg}}
                        style={stylePrd.Img} resizeMode={'cover'}/>
-                <View>
+                <View style={stylePrd.textContainer}>
                     <Text style={stylePrd.nameProd}>{prd.name}</Text>
                     <Text>{`R$ ${_amount}`}</Text>
                 </View>

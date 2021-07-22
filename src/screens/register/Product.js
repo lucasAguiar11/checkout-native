@@ -1,5 +1,5 @@
 import React from 'react';
-import {KeyboardAvoidingView, ScrollView, View} from 'react-native';
+import {KeyboardAvoidingView, Platform, ScrollView, View} from 'react-native';
 import {withTheme, HelperText} from 'react-native-paper';
 
 import Input from '../../components/InputNoPadding';
@@ -73,9 +73,10 @@ class Product extends React.Component {
 
         const {theme} = this.props;
         return (
-            <>
+            <KeyboardAvoidingView
+                behavior={"position"}
+                keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}>
                 <WavyHeader/>
-
                 <View style={styles.container}>
                     <View>
                         <ImagePicker onImageResult={(img) => this.setState({image: img})}/>
@@ -118,7 +119,8 @@ class Product extends React.Component {
                             Valor unitário do produto anunciado.
                         </HelperText>
                     </View>
-                    <View>
+
+                    <View style={styles.containerButton}>
                         <Button
                             theme={theme}
                             mode={'contained'}
@@ -128,8 +130,9 @@ class Product extends React.Component {
                             {this.state.click ? null : "Salvar"}
                         </Button>
                     </View>
+
                 </View>
-            </>
+            </KeyboardAvoidingView>
 
         );
     }

@@ -52,6 +52,7 @@ class User extends React.Component {
                     <HelperText
                         type="info"
                         padding='none'
+                        theme={theme}
                     >
                         Insira seu nome de usuário para ter acesso ao app e suas funcionalidades.
                     </HelperText>

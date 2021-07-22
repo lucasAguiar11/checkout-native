@@ -65,6 +65,7 @@ class User extends React.Component {
                     <HelperText
                         type="info"
                         padding='none'
+                        theme={theme}
                     >
                         Preencha sua senha. Cuidado com as letras maiúsculas e minúsculas.
                     </HelperText>

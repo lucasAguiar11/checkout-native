@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {KeyboardAvoidingView, ScrollView, View} from 'react-native';
 import {withTheme, HelperText} from 'react-native-paper';
 
 import Input from '../../components/InputNoPadding';
@@ -75,6 +75,7 @@ class Product extends React.Component {
         return (
             <>
                 <WavyHeader/>
+
                 <View style={styles.container}>
                     <View>
                         <ImagePicker onImageResult={(img) => this.setState({image: img})}/>
@@ -117,7 +118,6 @@ class Product extends React.Component {
                             Valor unitário do produto anunciado.
                         </HelperText>
                     </View>
-
                     <View>
                         <Button
                             theme={theme}
@@ -130,6 +130,7 @@ class Product extends React.Component {
                     </View>
                 </View>
             </>
+
         );
     }
 }

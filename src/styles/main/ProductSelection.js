@@ -47,10 +47,14 @@ export const stylePrd = StyleSheet.create({
 });
 
 export const style = StyleSheet.create({
+    center: {
+        justifyContent: 'center',
+        alignContent: 'center'
+    },
     mainContainer: {
         minHeight: responsiveHeight(70),
         paddingHorizontal: 15,
-        paddingBottom: 1
+        paddingBottom: 1,
     },
     productsList: {
         flexDirection: 'row',
@@ -72,4 +76,4 @@ export const style = StyleSheet.create({
         bottom: responsiveHeight(20)
     }
 });
-;
+

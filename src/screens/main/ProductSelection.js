@@ -9,7 +9,6 @@ import {WavyHeader} from '../../components/WavyBackground';
 import Button from '../../components/Button';
 import {PlaceholderComponentList} from '../../components/PlaceholderComponent';
 import EmptyState from '../../components/EmptyState';
-import {Assets} from "@react-navigation/stack";
 
 class ProductSelection extends React.Component {
 
@@ -114,9 +113,9 @@ class ProductSelection extends React.Component {
 
         if (products.length <= 0)
             return <EmptyState
-                headerText={'Ops... Nenhum produto encontrado.'}
+                headerText={'Ops, nenhum produto encontrado...'}
                 subHeaderText={'Por favor, cadastre um produto para continuar a geração do seu link de pagamento.'}
-                buttonText={'Cadastrar Produto'}
+                buttonText={'Cadastre agora!'}
                 onButtonClick={() => this._newProduct()}
             />
 
@@ -256,9 +255,7 @@ class ProductSelection extends React.Component {
         return (
             <>
                 <WavyHeader/>
-
                 {this.state.searchClick ? HeaderSearch() : Header()}
-
                 <ScrollView
                     refreshControl={
                         <RefreshControl
@@ -267,7 +264,7 @@ class ProductSelection extends React.Component {
                         />
                     }
                 >
-                    <View style={style.mainContainer}>
+                    <View style={[style.mainContainer, this.state.products.length <= 0 ? style.center : null]}>
                         <View style={style.productsList}>
                             {this.state.loadedProducts
                                 ? this._listProducts()

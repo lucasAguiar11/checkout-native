@@ -1,12 +1,11 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import EmptyStateView from '@tttstudios/react-native-empty-state';
-import { theme } from '../config/theme';
 
 export default ({headerText, subHeaderText, buttonText, onButtonClick }) => (
     <EmptyStateView
 
-        imageSource={require('../assets/empty-image.png')}
+        // imageSource={require('../assets/empty-image.png')}
         styles={styles.view}
         imageStyle={styles.imageStyle}
         headerText={headerText}

@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, ScrollView} from 'react-native';
-import {withTheme, HelperText, Snackbar, Provider} from 'react-native-paper';
+import {View} from 'react-native';
+import {withTheme, HelperText} from 'react-native-paper';
 
 import Input from '../../components/InputNoPadding';
 import Button from '../../components/Button';
@@ -11,6 +11,7 @@ import ImagePicker from '../../components/ImagePicker';
 
 import ProductsStorage from "../../storage/ProductsStorage";
 import {uuidv4} from "../../helpers/Helpers";
+import {WavyHeader} from "../../components/WavyBackground";
 
 class Product extends React.Component {
     constructor(props) {
@@ -70,10 +71,11 @@ class Product extends React.Component {
 
     render() {
 
-        const theme = this.props.theme;
+        const {theme} = this.props;
         return (
-            <Provider>
-                <ScrollView style={styles.container}>
+            <>
+                <WavyHeader/>
+                <View style={styles.container}>
                     <View>
                         <ImagePicker onImageResult={(img) => this.setState({image: img})}/>
                         <Input
@@ -90,6 +92,7 @@ class Product extends React.Component {
                         <HelperText
                             type="info"
                             padding='none'
+                            theme={theme}
                         >
                             Digite o nome do produto que deseja gerar o link de pagamento.
                         </HelperText>
@@ -109,11 +112,12 @@ class Product extends React.Component {
                         <HelperText
                             type="info"
                             padding='none'
+                            theme={theme}
                         >
                             Valor unitário do produto anunciado.
                         </HelperText>
-
                     </View>
+
                     <View>
                         <Button
                             theme={theme}
@@ -124,20 +128,8 @@ class Product extends React.Component {
                             {this.state.click ? null : "Salvar"}
                         </Button>
                     </View>
-                </ScrollView>
-                <Snackbar
-                    duration={3000}
-                    theme={theme}
-                    visible={this.state.snackBarVisible}
-                    onDismiss={() => this.setState({snackBarVisible: false})}
-                    action={{
-                        label: 'Visualizar',
-                        onPress: () => this.props.navigation.goBack(),
-                    }}>
-                    Produto Cadastrado!
-                </Snackbar>
-            </Provider>
-
+                </View>
+            </>
         );
     }
 }

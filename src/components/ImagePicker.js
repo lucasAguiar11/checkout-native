@@ -35,6 +35,18 @@ const Img = ({onImageResult}) => {
         return false;
     };
 
+    const saveData = (item) => {
+        console.log('base64 -> ', item.base64);
+        console.log('uri -> ', item.uri);
+        console.log('width -> ', item.width);
+        console.log('height -> ', item.height);
+        console.log('fileSize -> ', item.fileSize);
+        console.log('type -> ', item.type);
+        console.log('fileName -> ', item.fileName);
+        setFilePath(item);
+        onImageResult(item)
+    }
+
     const captureImage = async (type) => {
         let options = {
             mediaType: type,
@@ -52,7 +64,7 @@ const Img = ({onImageResult}) => {
 
         if (!isCameraPermitted || !isStoragePermitted) return;
 
-        launchCamera(options, (response) => {
+        await launchCamera(options, (response) => {
 
             console.log('Response = ', response);
             const {assets} = response;
@@ -74,20 +86,12 @@ const Img = ({onImageResult}) => {
                 return;
             }
 
-            console.log('base64 -> ', item.base64);
-            console.log('uri -> ', item.uri);
-            console.log('width -> ', item.width);
-            console.log('height -> ', item.height);
-            console.log('fileSize -> ', item.fileSize);
-            console.log('type -> ', item.type);
-            console.log('fileName -> ', item.fileName);
-            setFilePath(item);
-            onImageResult(item)
+            saveData(item);
         });
     };
 
 
-    const chooseFile = (type) => {
+    const chooseFile = async (type) => {
         let options = {
             mediaType: type,
             maxWidth: 300,
@@ -95,14 +99,15 @@ const Img = ({onImageResult}) => {
             quality: 1,
             includeBase64: true
         };
-        launchImageLibrary(options, response => {
+
+        await launchImageLibrary(options, response => {
             console.log('Response = ', response);
 
             const {assets} = response;
             const item = assets != null ? assets[0] : null;
 
             if (response.didCancel) {
-                setFilePath(null);
+                // setFilePath(null);
                 console.log('User cancelled camera picker');
                 return;
             } else if (response.errorCode === 'camera_unavailable') {
@@ -116,15 +121,7 @@ const Img = ({onImageResult}) => {
                 console.log(response.errorMessage);
                 return;
             }
-            console.log('base64 -> ', item.base64);
-            console.log('uri -> ', item.uri);
-            console.log('width -> ', item.width);
-            console.log('height -> ', item.height);
-            console.log('fileSize -> ', item.fileSize);
-            console.log('type -> ', item.type);
-            console.log('fileName -> ', item.fileName);
-            setFilePath(item);
-            onImageResult(item)
+            saveData(item);
         });
     };
 
@@ -138,7 +135,6 @@ const Img = ({onImageResult}) => {
                     <Card.Cover source={filePath == null ? require('../assets/default.jpg') : {uri: filePath.uri}}/>
                 </TouchableOpacity>
                 <Card.Actions style={styles.actions}>
-
                     {
                         filePath != null
                         && <IconButton
@@ -177,5 +173,8 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 210,
         right: 0
+    },
+    actions: {
+        backgroundColor: '#fff'
     }
 });

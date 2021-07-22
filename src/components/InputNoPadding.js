@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { TextInput, HelperText } from 'react-native-paper';
-import { theme } from '../config/theme';
+import {StyleSheet, View} from 'react-native';
+import {TextInput, HelperText} from 'react-native-paper';
+import { TextInputMask } from 'react-native-masked-text';
+import {theme} from '../config/theme';
 
-export default function Input({innerRef, errorText, ...props }) {
+export default function Input({innerRef, errorText, ...props}) {
     let stylesArr = [styles.input];
 
     if (props.style)
@@ -17,12 +18,49 @@ export default function Input({innerRef, errorText, ...props }) {
                 style={stylesArr}
                 ref={innerRef}
             />
-            <HelperText style={!errorText ? styles.helpText : null} type={'error'} visible={!!errorText} padding={'none'} >
+            <HelperText style={!errorText ? styles.helpText : null} type={'error'} visible={!!errorText}
+                        padding={'none'}>
                 {errorText}
             </HelperText>
         </View>
     );
 }
+
+export function InputCurrency({innerRef, errorText, ...props}) {
+    let stylesArr = [styles.input];
+
+    if (props.style)
+        stylesArr.push(props.style);
+
+    return (
+        <View>
+            <TextInput
+                theme={theme}
+                {...props}
+                style={stylesArr}
+                ref={innerRef}
+                render={(p) => (
+                    <TextInputMask
+                        {...p}
+                        type={'money'}
+                        options={{
+                            precision: 2,
+                            separator: ',',
+                            delimiter: '.',
+                            unit: 'R$ ',
+                            suffixUnit: ''
+                        }}
+                    />
+                )}
+            />
+            <HelperText style={!errorText ? styles.helpText : null} type={'error'} visible={!!errorText}
+                        padding={'none'}>
+                {errorText}
+            </HelperText>
+        </View>
+    );
+}
+
 
 const styles = StyleSheet.create({
     input: {
@@ -30,7 +68,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 0,
         fontSize: 16,
     },
-    helpText:{
+    helpText: {
         display: 'none'
     }
 })

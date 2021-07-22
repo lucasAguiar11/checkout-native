@@ -1,17 +1,18 @@
 import React from 'react';
-import {KeyboardAvoidingView, Platform, ScrollView, View} from 'react-native';
+import {KeyboardAvoidingView, Platform, View} from 'react-native';
 import {withTheme, HelperText} from 'react-native-paper';
 
-import Input from '../../components/InputNoPadding';
+import Input, {InputCurrency} from '../../components/InputNoPadding';
 import Button from '../../components/Button';
 import {styles} from '../../styles/register/Product';
-
-import {textValidator, currencyValidator} from '../../helpers/Validation';
 import ImagePicker from '../../components/ImagePicker';
+import {WavyHeader} from "../../components/WavyBackground";
 
 import ProductsStorage from "../../storage/ProductsStorage";
-import {uuidv4} from "../../helpers/Helpers";
-import {WavyHeader} from "../../components/WavyBackground";
+import {textValidator, currencyValidator} from '../../helpers/Validation';
+import {currencyNumber, uuidv4} from "../../helpers/Helpers";
+import CustomMask from "react-native-masked-text/lib/masks/custom.mask";
+
 
 class Product extends React.Component {
     constructor(props) {
@@ -27,6 +28,9 @@ class Product extends React.Component {
     }
 
     async register() {
+
+        console.log(this.state.productValue.value)
+
         const name = textValidator(this.state.productName.value, 'Nome');
         const value = currencyValidator(this.state.productValue.value, 'Valor (R$)')
 
@@ -98,14 +102,14 @@ class Product extends React.Component {
                         >
                             Digite o nome do produto que deseja gerar o link de pagamento.
                         </HelperText>
-                        <Input
+                        <InputCurrency
                             label="Valor (R$)"
                             theme={theme}
                             value={this.state.productValue.value}
                             error={!!this.state.productValue.error}
                             errorText={this.state.productValue.error}
                             onChangeText={(text) => {
-                                this.setState({productValue: {value: text, error: ''}})
+                                this.setState({productValue: {value: currencyNumber(text), error: ''}})
                             }}
                             keyboardType="numeric"
                             returnKeyType={"done"}

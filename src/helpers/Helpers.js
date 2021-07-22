@@ -29,6 +29,20 @@ export function hexToRgb(hex) {
     } : null;
 }
 
+export function currencyNumber(s) {
+    if (s == null) return null;
+    let result = s.replace('R$', '');
+    result = result.replace(/ /g, '');
+    result = result.replace(/\./g, '');
+    result = result.replace(',', '.');
+
+    let num = parseFloat(result).toFixed(2)
+    console.log('currencyNumber 1 - ', result);
+    console.log('currencyNumber 2 - ', num);
+
+    return num;
+}
+
 export function uuidv4() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
         let r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);

@@ -28,6 +28,7 @@
     "react-native-gesture-handler": "^1.10.3",
     "react-native-image-picker": "^4.0.4",
     "react-native-keyboard-aware-scroll-view": "^0.9.4",
+    "react-native-masked-text": "^1.13.0",
     "react-native-paper": "^4.9.1",
     "react-native-reanimated": "^2.2.0",
     "react-native-responsive-dimensions": "^3.1.1",
@@ -52,6 +53,7 @@
   },
   "resolutions": {
     "css-what": ">=5.0.1",
-    "node-fetch": " >=2.6.1"
+    "node-fetch": ">=2.6.1",
+    "date-and-time": ">=0.14.2"
   }
 }

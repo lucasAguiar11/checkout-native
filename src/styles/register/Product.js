@@ -10,6 +10,9 @@ export const styles = StyleSheet.create({
     containerButton: {
         flex: 1,
         justifyContent: 'flex-end'
+    },
+    snack: {
+        backgroundColor: '#28a745',
     }
 });
 

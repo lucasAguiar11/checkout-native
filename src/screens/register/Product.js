@@ -11,7 +11,8 @@ import {WavyHeader} from "../../components/WavyBackground";
 import ProductsStorage from "../../storage/ProductsStorage";
 import {textValidator, currencyValidator} from '../../helpers/Validation';
 import {currencyNumber, uuidv4} from "../../helpers/Helpers";
-import CustomMask from "react-native-masked-text/lib/masks/custom.mask";
+import {showMessage} from "react-native-flash-message";
+
 
 
 class Product extends React.Component {
@@ -20,16 +21,14 @@ class Product extends React.Component {
     }
 
     state = {
-        snackBarVisible: false,
         image: null,
         click: false,
+        clearImage: false,
         productName: {value: '', error: ''},
         productValue: {value: '', error: ''},
     }
 
     async register() {
-
-        console.log(this.amount)
 
         const name = textValidator(this.state.productName.value, 'Nome');
         const value = currencyValidator(this.state.productValue.value, 'Valor (R$)')
@@ -61,16 +60,24 @@ class Product extends React.Component {
 
         this.setState(() => ({click: false, snackBarVisible: true}));
         this.clearInputs();
+        showMessage({
+            message: this.state.productName.value || "Produto",
+            description: "Cadastro realizado com sucesso!",
+            type: "success",
+            duration: 3000
+        });
     }
 
     clearInputs() {
         this.setState(() => (
             {
-                image: null,
                 click: false,
+                clearImage: true,
                 productName: {value: null, error: null},
                 productValue: {value: null, error: null},
             }));
+
+        this.setState({clearImage: false});
     }
 
     render() {
@@ -83,7 +90,7 @@ class Product extends React.Component {
                 <WavyHeader/>
                 <View style={styles.container}>
                     <View>
-                        <ImagePicker onImageResult={(img) => this.setState({image: img})}/>
+                        <ImagePicker onImageResult={(img) => this.setState({image: img})} clear={this.state.clearImage}/>
                         <Input
                             label="Nome do produto"
                             theme={theme}
@@ -133,6 +140,7 @@ class Product extends React.Component {
                         >
                             {this.state.click ? null : "Salvar"}
                         </Button>
+
                     </View>
 
                 </View>

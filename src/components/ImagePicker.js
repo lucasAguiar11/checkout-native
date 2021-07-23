@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, TouchableOpacity, Platform, PermissionsAndroid} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
@@ -6,7 +6,7 @@ import {Card, IconButton, withTheme, Colors} from 'react-native-paper';
 import {theme} from "../config/theme";
 
 
-const Img = ({onImageResult}) => {
+const Img = ({onImageResult, clear = false}) => {
     const [filePath, setFilePath] = useState(null);
 
     const requestCameraPermission = async () => {
@@ -124,6 +124,13 @@ const Img = ({onImageResult}) => {
             saveData(item);
         });
     };
+
+    useEffect(() => {
+        if(clear){
+            setFilePath(null);
+        }
+    }, [clear])
+
 
     return (
         <View>

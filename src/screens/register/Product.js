@@ -29,7 +29,7 @@ class Product extends React.Component {
 
     async register() {
 
-        console.log(this.state.productValue.value)
+        console.log(this.amount)
 
         const name = textValidator(this.state.productName.value, 'Nome');
         const value = currencyValidator(this.state.productValue.value, 'Valor (R$)')
@@ -93,7 +93,7 @@ class Product extends React.Component {
                             returnKeyType={"next"}
                             onChangeText={(text) => this.setState({productName: {value: text, error: ''}})}
                             blurOnSubmit={false}
-                            onSubmitEditing={() => this.amount.focus()}
+                            onSubmitEditing={() => this.amount.getElement().focus()}
                         />
                         <HelperText
                             type="info"

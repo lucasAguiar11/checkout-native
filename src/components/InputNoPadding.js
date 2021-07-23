@@ -38,10 +38,10 @@ export function InputCurrency({innerRef, errorText, ...props}) {
                 theme={theme}
                 {...props}
                 style={stylesArr}
-                ref={innerRef}
                 render={(p) => (
                     <TextInputMask
                         {...p}
+                        ref={innerRef}
                         type={'money'}
                         options={{
                             precision: 2,

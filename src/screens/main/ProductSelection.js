@@ -24,7 +24,6 @@ class ProductSelection extends React.Component {
 
     //#region States e ciclo de vida
     state = {
-        searchClick: false,
         menu: false,
         refreshing: false,
         open: false,
@@ -79,10 +78,10 @@ class ProductSelection extends React.Component {
 
     _itemPrd({prd}) {
         const _amount = parseFloat(prd.amount).toFixed(2);
+        const _img = prd.urlImg == null ? require('../../assets/default.jpg') : {uri: prd.urlImg};
         return (
             <View key={prd.id} style={stylePrd.card}>
-                <Image source={prd.urlImg == null ? require('../../assets/default.jpg') : {uri: prd.urlImg}}
-                       style={stylePrd.Img} resizeMode={'cover'}/>
+                <Image source={_img} style={stylePrd.Img} resizeMode={'cover'}/>
                 <View style={stylePrd.textContainer}>
                     <Text style={stylePrd.nameProd}>{prd.name}</Text>
                     <Text>{`R$ ${_amount}`}</Text>
@@ -155,11 +154,11 @@ class ProductSelection extends React.Component {
 
     _genLink() {
         const prods = this.state.products;
-        console.log(prods.some(x => x.selected));
+        console.log(prods.filter(x => x.selected));
     }
 
     _onRefresh() {
-        this.setState({refreshing: true, loadedProducts: false, products: [], searchQuery: "", searchClick: false});
+        this.setState({refreshing: true, loadedProducts: false, products: [], searchQuery: ""});
         setTimeout(() => {
             this.setState({refreshing: false});
             this.getProducts();
@@ -194,9 +193,6 @@ class ProductSelection extends React.Component {
         const Header = () => (
             <Appbar.Header theme={theme} style={styleHeader.container}>
                 <Appbar.Content title="Seus Produtos" subtitle={'Selecione ou cadastre os produto.'}/>
-                <Appbar.Action icon="magnify" onPress={() => {
-                    this.setState({searchClick: true})
-                }}/>
                 <Menu
                     theme={theme}
                     visible={this.state.menu}
@@ -216,20 +212,6 @@ class ProductSelection extends React.Component {
                 </Menu>
             </Appbar.Header>
         );
-
-        const HeaderSearch = () => (
-            <Appbar.Header theme={theme} style={styleHeader.container}>
-                <Searchbar
-                    style={styleHeader.appbar}
-                    placeholder="Busca..."
-                    icon={'keyboard-backspace'}
-                    onIconPress={() => this.setState({searchClick: false})}
-                    value={this.state.searchQuery}
-                    onChangeText={(txt) => this.setState({searchQuery: txt})}
-                />
-            </Appbar.Header>
-        );
-
 
         const Footer = () => {
 
@@ -255,7 +237,7 @@ class ProductSelection extends React.Component {
         return (
             <>
                 <WavyHeader/>
-                {this.state.searchClick ? HeaderSearch() : Header()}
+                {Header()}
                 <ScrollView
                     refreshControl={
                         <RefreshControl
